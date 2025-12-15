@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import aboutImage from '../assets/images/about-aimee.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -45,7 +46,7 @@ function About() {
           <div className="about-left">
             <div className="about-image-wrapper">
               <img
-                src="/src/assets/images/about-aimee.jpg"
+                src={aboutImage}
                 alt="Aimee Hinewaa Ratana"
                 className="about-image"
               />

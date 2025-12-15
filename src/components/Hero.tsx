@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import SplitType from 'split-type'
+import heroImage from '../assets/images/hero-antarctic.jpeg'
 
 function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -104,7 +105,7 @@ function Hero() {
         <div className="hero-image-wrapper" ref={imageRef}>
           <div className="hero-image-container">
             <img
-              src="/src/assets/images/hero-antarctic.jpeg"
+              src={heroImage}
               alt="Antarctic landscape showcasing environmental leadership"
               className="hero-image"
             />

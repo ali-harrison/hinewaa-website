@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import logoImage from '../assets/images/Vector.png'
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,7 +33,7 @@ function Navigation() {
               className="logo-button"
             >
               <img
-                src="/src/assets/images/Vector.png"
+                src={logoImage}
                 alt="Hinewaa Ltd"
                 className="logo-image"
               />

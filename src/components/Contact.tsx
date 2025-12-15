@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import logoImage from '../assets/images/Vector.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -223,7 +224,7 @@ function Contact() {
             <div className="footer-left">
               <div className="footer-logo">
                 <img
-                  src="/src/assets/images/Vector.png"
+                  src={logoImage}
                   alt="Hinewaa"
                   className="footer-logo-image"
                 />
