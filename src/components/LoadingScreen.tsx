@@ -8,13 +8,13 @@ function LoadingScreen() {
   const loadingRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Always show loading screen for testing - remove the check temporarily
-    // const hasLoaded = sessionStorage.getItem('hasLoaded')
+    // Check if page has already loaded in this session
+    const hasLoaded = sessionStorage.getItem('hasLoaded')
 
-    // if (hasLoaded) {
-    //   setIsLoading(false)
-    //   return
-    // }
+    if (hasLoaded) {
+      setIsLoading(false)
+      return
+    }
 
     // Simulate loading progress
     const progressInterval = setInterval(() => {

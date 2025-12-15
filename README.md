@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Hinewaa Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Indigenous strategies shaping global futures - Official website for Hinewaa Ltd.
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Hinewaa is a Māori-owned consultancy transforming fragmented systems into purposeful, intergenerational solutions. This website showcases our services, impact, and approach to aligning people, planet, and prosperity.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Custom Polynesian Cursor** - Poutama (staircase) triangle pattern representing growth and achievement
+- **Loading Screen** - Smooth entry experience with progress indicator
+- **Smooth Scrolling** - Lenis integration for premium feel
+- **GSAP Animations** - Dynamic text reveals and scroll-triggered animations
+- **Responsive Design** - Mobile-first approach with full responsiveness
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** with TypeScript
+- **Vite** for fast builds and dev experience
+- **GSAP** for animations
+- **Lenis** for smooth scrolling
+- **Inter & Fraunces** fonts from Google Fonts
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Development
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Install dependencies
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deployment
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Deployed on Vercel with automatic deployments from the `main` branch.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Live Site:** https://hinewaa.com
+
+## Project Structure
+
 ```
+src/
+├── components/      # React components
+├── assets/         # Images and media
+└── styles/         # CSS files
+    ├── components/ # Component-specific styles
+    └── sections/   # Section-specific styles
+```
+
+## Brand Colors
+
+- **Primary Green:** #2C5F4F
+- **Terracotta:** #C85A3E
+- **Background Cream:** #FFFCF7
+- **Text:** #2D3436
