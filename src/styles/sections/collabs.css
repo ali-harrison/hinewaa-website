@@ -1,0 +1,213 @@
+/* Collabs Section - Premium Card */
+
+.collabs {
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  padding: 140px 0;
+  margin-top: -80px;
+  padding-top: 180px;
+  background: linear-gradient(to bottom, #f8f6f3 0%, #fffcf7 50%, #f9f7f4 100%);
+  border-radius: 0 80px 0 0;
+}
+
+.collabs-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 80px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  /* Premium card styling matching About section */
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  border-radius: 40px;
+  box-shadow:
+    0 60px 120px rgba(0, 0, 0, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.04),
+    0 8px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(44, 95, 79, 0.08);
+
+  /* Initial state for scroll animation */
+  opacity: 0;
+  transform: translateY(80px) scale(0.96);
+}
+
+/* Decorative corner accent */
+.collabs-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  max-width: 30vw;
+  height: 200px;
+  max-height: 30vw;
+  background: radial-gradient(
+    circle at top left,
+    rgba(44, 95, 79, 0.06) 0%,
+    transparent 70%
+  );
+  border-radius: 40px 0 0 0;
+  pointer-events: none;
+}
+
+.collabs-title {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  text-align: center;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+
+.collabs-subtitle {
+  text-align: center;
+  color: var(--color-text);
+  font-size: 1.2rem;
+  line-height: 1.85;
+  font-weight: 400;
+  margin: 0 auto 64px;
+  max-width: 700px;
+}
+
+.collabs-track-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.collabs-track {
+  display: flex;
+  gap: var(--spacing-md);
+  animation: scroll-left 40s linear infinite;
+  width: fit-content;
+}
+
+.partner-logo {
+  min-width: 180px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid rgba(44, 95, 79, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.partner-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.6);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.partner-logo-img.partner-logo-large {
+  transform: scale(3.6);
+  filter: grayscale(100%) opacity(0.85) drop-shadow(0 0 8px rgba(44, 95, 79, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.partner-logo-img.partner-logo-medium {
+  transform: scale(1);
+}
+
+.partner-logo-img.partner-logo-invert {
+  filter: grayscale(100%) opacity(0.6) invert(1);
+}
+
+.partner-logo:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.partner-logo:hover .partner-logo-img {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
+}
+
+.partner-logo:hover .partner-logo-img.partner-logo-invert {
+  filter: grayscale(0%) opacity(1) invert(1);
+  transform: scale(1.05);
+}
+
+.partner-logo:hover .partner-logo-img.partner-logo-large {
+  transform: scale(3.8);
+  filter: grayscale(0%) opacity(1) drop-shadow(0 0 12px rgba(44, 95, 79, 0.6)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.partner-logo:hover .partner-logo-img.partner-logo-medium {
+  transform: scale(1.05);
+}
+
+/* Infinite scroll animation */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause on hover */
+.collabs-track:hover {
+  animation-play-state: paused;
+}
+
+/* Tablet/iPad */
+@media (max-width: 1024px) {
+  .collabs-container {
+    max-width: 1400px;
+    padding: 60px;
+  }
+
+  .collabs-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .partner-logo {
+    min-width: 180px;
+    height: 100px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 968px) {
+  .collabs {
+    padding: 80px 0;
+    border-radius: 0;
+    margin-top: 0;
+  }
+
+  .collabs-container {
+    padding: 40px 24px;
+    border-radius: 24px;
+    margin: 0 16px;
+  }
+
+  .collabs-title {
+    font-size: 0.65rem;
+  }
+
+  .collabs-subtitle {
+    font-size: 1.05rem;
+    margin-bottom: 48px;
+  }
+
+  .partner-logo {
+    min-width: 160px;
+    height: 90px;
+    padding: 16px;
+  }
+}

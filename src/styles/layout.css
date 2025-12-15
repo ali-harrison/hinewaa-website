@@ -1,0 +1,4 @@
+/* Section base class - used by multiple components */
+.section {
+  position: relative;
+}
