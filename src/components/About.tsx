@@ -1,131 +1,107 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { fadeInOnScroll, staggerFadeInWithRotation, cleanupScrollTriggers } from '../utils/animations'
 import aboutImage from '../assets/images/about-aimee.jpg'
 
-gsap.registerPlugin(ScrollTrigger)
-
 function About() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const leftRef = useRef<HTMLDivElement>(null)
+  const rightRef = useRef<HTMLDivElement>(null)
+  const bentoRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Simple quick fade in - no scale transform
-    gsap.fromTo(
-      containerRef.current,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      }
-    )
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    if (leftRef.current) {
+      fadeInOnScroll(leftRef.current, { y: 60, start: 'top 75%' })
     }
+
+    if (rightRef.current) {
+      fadeInOnScroll(rightRef.current, { y: 60, delay: 0.2, start: 'top 75%' })
+    }
+
+    if (bentoRef.current) {
+      const cards = bentoRef.current.querySelectorAll('.bento-card')
+      staggerFadeInWithRotation(cards, {
+        y: 50,
+        rotation: 2,
+        stagger: 0.1,
+        trigger: bentoRef.current,
+      })
+    }
+
+    return () => cleanupScrollTriggers()
   }, [])
 
   return (
-    <section className="about section" id="about" ref={sectionRef}>
-      {/* Card Container with ref for animation */}
-      <div className="about-container" ref={containerRef}>
-        <span className="about-accent">WHO WE ARE</span>
+    <section className="about section section-numbered section-divider" id="about" data-section-number="01">
+      <div className="about-container">
+        <span className="about-accent">Ko wai mātou?</span>
 
         <div className="about-layout">
-          {/* LEFT SIDE - Image + Title */}
-          <div className="about-left">
-            <div className="about-image-wrapper">
+          <div className="about-left" ref={leftRef}>
+            <div className="about-image-wrapper img-reveal">
               <img
                 src={aboutImage}
                 alt="Aimee Hinewaa Ratana"
-                className="about-image"
+                className="about-image img-grayscale"
+                loading="lazy"
               />
               <div className="image-caption">
-                <p className="caption-name">Aimee Rachel Kaio</p>
+                <p className="caption-name">Aimee Kaio</p>
                 <p className="caption-role">Founder & Lead Strategist</p>
               </div>
             </div>
 
             <h2 className="about-title">
-              Our <em>Story</em>
+              Two Knowledge Systems. One Strategic Lens.
             </h2>
           </div>
 
-          {/* RIGHT SIDE - Content */}
-          <div className="about-right">
+          <div className="about-right" ref={rightRef}>
             <div className="about-main">
               <strong className="about-lead">
-                Hinewaa leads innovation shaped by two worlds - guided by whakapapa, informed by science, and designed to honour people, place, and planet.
+                Hinewaa is led by Aimee Kaio and works alongside trusted collaborators and whānau where specialist expertise is required.
               </strong>
 
               <p>
-                We are bridge-builders and system thinkers - translating between iwi, Crown, science, and regional sectors. We don't just advise on strategy; we design it, align it, and future-proof it through values-driven innovation that combines mātauranga Māori with strategic rigour.
+                Hinewaa is an Indigenous-led strategic advisory practice working where community, iwi, Crown, research and industry intersect.
               </p>
 
               <p>
-                From regional economic development to Antarctic governance, we work where Indigenous knowledge meets global systems - turning aspiration into structure, vision into measurable action, and fragmented approaches into purposeful, intergenerational solutions.
+                Our focus areas include: Climate and environmental governance | Indigenous bioeconomy and mahika kai | Strategic transformation and system alignment | Commercial–taiao partnerships
+              </p>
+
+              <p>
+                We operate at the interface of policy, science and community - translating complexity into actionable strategy. From regional economic development to interests in Antarctic governance, we work where Indigenous knowledge meets global systems.
               </p>
             </div>
 
-            {/* Values Bento Grid */}
             <div className="values-bento-container">
               <h3 className="values-heading">Our Values</h3>
 
-              <div className="bento-grid">
-                {/* Large Card */}
+              <div className="bento-grid" ref={bentoRef}>
                 <div className="bento-card bento-large bento-primary">
                   <span className="bento-icon">01</span>
                   <div className="bento-content">
-                    <h4>Innovation</h4>
+                    <h4>Knowledge Integrity</h4>
                     <p>
-                      Blending mātauranga Māori with strategic rigour to solve complex challenges
+                      Grounded in whakapapa and informed by science. We honour mātauranga Māori while applying evidence, analysis and disciplined thinking to complex system challenges.
                     </p>
                   </div>
                 </div>
 
-                {/* Medium Card */}
                 <div className="bento-card bento-medium bento-accent">
                   <span className="bento-icon">02</span>
                   <div className="bento-content">
-                    <h4>Integrity</h4>
-                    <p>Grounded in whakapapa, guided by honesty and accountability</p>
+                    <h4>Strategic Rigour</h4>
+                    <p>
+                      Clarity in complexity. We bring structured thinking, governance discipline and measurable frameworks to ensure strategy translates into action and accountability.
+                    </p>
                   </div>
                 </div>
 
-                {/* Medium Card */}
                 <div className="bento-card bento-medium bento-primary-light">
                   <span className="bento-icon">03</span>
                   <div className="bento-content">
-                    <h4>Strategic Excellence</h4>
-                    <p>Delivering measurable, future-focused outcomes</p>
-                  </div>
-                </div>
-
-                {/* Small Card */}
-                <div className="bento-card bento-small bento-accent-light">
-                  <span className="bento-icon">04</span>
-                  <div className="bento-content">
-                    <h4>Collaboration</h4>
-                    <p>Bridge-building across sectors and worldviews</p>
-                  </div>
-                </div>
-
-                {/* Small Card */}
-                <div className="bento-card bento-small bento-primary-dark">
-                  <span className="bento-icon">05</span>
-                  <div className="bento-content">
-                    <h4>Impact</h4>
-                    <p>Creating lasting, intergenerational change</p>
+                    <h4>Intergenerational Impact</h4>
+                    <p>Designed for those who come next. We focus on enduring outcomes — aligning people, planet and prosperity for long-term resilience and prosperity.</p>
                   </div>
                 </div>
               </div>

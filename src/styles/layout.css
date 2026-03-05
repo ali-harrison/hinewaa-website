@@ -1,4 +1,89 @@
-/* Section base class - used by multiple components */
+/* ── 12-Column Grid System ── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+  width: 100%;
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: 0 var(--grid-padding);
+}
+
+/* ── Column Spans ── */
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }
+
+/* ── Column Start Positions ── */
+.col-start-1  { grid-column-start: 1; }
+.col-start-2  { grid-column-start: 2; }
+.col-start-3  { grid-column-start: 3; }
+.col-start-4  { grid-column-start: 4; }
+.col-start-5  { grid-column-start: 5; }
+.col-start-6  { grid-column-start: 6; }
+.col-start-7  { grid-column-start: 7; }
+.col-start-8  { grid-column-start: 8; }
+.col-start-9  { grid-column-start: 9; }
+.col-start-10 { grid-column-start: 10; }
+.col-start-11 { grid-column-start: 11; }
+.col-start-12 { grid-column-start: 12; }
+
+/* ── Section Base ── */
 .section {
   position: relative;
+  padding: var(--spacing-section) 0;
+}
+
+/* ── Section Container (inherits grid) ── */
+.section-container {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+  width: 100%;
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: 0 var(--grid-padding);
+}
+
+/* ── Responsive Grid ── */
+
+@media (max-width: 768px) {
+  :root {
+    --grid-padding: 1.5rem;
+  }
+
+  .grid,
+  .section-container {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: var(--spacing-section-mobile) 0;
+  }
+
+  /* Reset all column spans on mobile */
+  [class*="col-"] {
+    grid-column: span 1;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid,
+  .section-container {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .section {
+    padding: var(--spacing-section-tablet) 0;
+  }
 }

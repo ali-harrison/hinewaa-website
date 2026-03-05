@@ -1,193 +1,83 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { fadeInOnScroll, staggerFadeInWithRotation, createParallax, cleanupScrollTriggers } from '../utils/animations'
 
 function Approach() {
-  const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
-  const bridgesRef = useRef<(HTMLDivElement | null)[]>([])
+  const gridRef = useRef<HTMLDivElement>(null)
   const statementRef = useRef<HTMLDivElement>(null)
 
-  const bridges = [
-    { from: 'Iwi', to: 'Crown' },
-    { from: 'Science', to: <span className="matauranga-text">M<span className="macron-a">a</span>tauranga</span> },
-    { from: 'Economy', to: 'Environment' },
+  const principles = [
+    {
+      number: '01',
+      title: 'Context First',
+      desc: 'Every engagement begins with deep listening. We map relationships, histories and priorities before any strategy is formed.',
+    },
+    {
+      number: '02',
+      title: 'Evidence with Integrity',
+      desc: 'We bring mātauranga Māori and scientific evidence into genuine dialogue — neither subordinated to the other.',
+    },
+    {
+      number: '03',
+      title: 'System Alignment, Design for Execution',
+      desc: 'Strategy only works when the systems around it are aligned. We design for implementation, not just the plan.',
+    },
   ]
 
   useEffect(() => {
-    // Ensure elements are visible by default
     if (headerRef.current) {
-      gsap.set(headerRef.current, { opacity: 1 })
+      fadeInOnScroll(headerRef.current, { y: 30 })
     }
 
-    bridgesRef.current.forEach((bridge) => {
-      if (bridge) {
-        gsap.set(bridge, { opacity: 1 })
-      }
-    })
+    if (gridRef.current) {
+      const cards = gridRef.current.querySelectorAll('.timeline-item')
+      staggerFadeInWithRotation(cards, {
+        y: 40,
+        rotation: 3,
+        stagger: 0.15,
+        trigger: gridRef.current,
+      })
+    }
 
     if (statementRef.current) {
-      gsap.set(statementRef.current, { opacity: 1 })
+      fadeInOnScroll(statementRef.current, { y: 30 })
+      createParallax(statementRef.current, { speed: 0.1 })
     }
 
-    // Header animation
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(headerRef.current, { opacity: 1, y: 0 }),
-        },
-      }
-    )
-
-    // Bridge cards stagger animation
-    bridgesRef.current.forEach((bridge, index) => {
-      if (bridge) {
-        const line = bridge.querySelector('.bridge-line')
-        const arrow = bridge.querySelector('.bridge-arrow')
-
-        // Card entrance
-        gsap.fromTo(
-          bridge,
-          { opacity: 0, x: -60, rotationY: -15 },
-          {
-            opacity: 1,
-            x: 0,
-            rotationY: 0,
-            duration: 1,
-            delay: index * 0.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: bridge,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-              onEnter: () => gsap.to(bridge, { opacity: 1, x: 0, rotationY: 0 }),
-            },
-          }
-        )
-
-        // Animate bridge line
-        gsap.fromTo(
-          line,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 0.8,
-            delay: index * 0.2 + 0.4,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: bridge,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          }
-        )
-
-        // Animate arrow
-        gsap.fromTo(
-          arrow,
-          { opacity: 0, x: -20 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            delay: index * 0.2 + 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: bridge,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          }
-        )
-
-        // Subtle parallax
-        gsap.to(bridge, {
-          y: -20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: bridge,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        })
-      }
-    })
-
-    // Statement fade in
-    gsap.fromTo(
-      statementRef.current,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: statementRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(statementRef.current, { opacity: 1, y: 0 }),
-        },
-      }
-    )
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
+    return () => cleanupScrollTriggers()
   }, [])
 
   return (
-    <section className="approach section" id="approach" ref={sectionRef}>
+    <section className="approach section section-numbered section-divider" id="approach" data-section-number="03">
       <div className="approach-container">
         <div className="approach-header" ref={headerRef}>
           <h2 className="approach-title">
-            How We <em>Bridge</em> Worlds
+            Kā tikaka | Our Approach
           </h2>
           <p className="approach-intro">
-            We connect seemingly separate systems to create coherent,
-            values-driven strategies.
+            Hinewaa operates at the interface of mātauranga Māori, scientific evidence and governance systems. We bring disciplined analysis to complex environments, ensuring strategy is culturally grounded, analytically sound and practically implementable. Our approach is built on three principles:
           </p>
         </div>
 
-        <div className="bridges-grid">
-          {bridges.map((bridge, index) => (
-            <div
-              key={index}
-              className="bridge-card"
-              ref={(el) => {
-                bridgesRef.current[index] = el
-              }}
-            >
-              <div className="bridge-endpoints">
-                <span className="bridge-point">{bridge.from}</span>
-                <div className="bridge-visual">
-                  <div className="bridge-line"></div>
-                  <span className="bridge-arrow">→</span>
-                </div>
-                <span className="bridge-point">{bridge.to}</span>
+        <div className="timeline-wrap" ref={gridRef}>
+          <div className="timeline-line" />
+          <div className="timeline-grid">
+            {principles.map((principle) => (
+              <div key={principle.number} className="timeline-item">
+                <div className="timeline-dot">{principle.number}</div>
+                <h3 className="timeline-title">{principle.title}</h3>
+                <p className="timeline-desc">{principle.desc}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="approach-statement" ref={statementRef}>
-          <p>
-            Hinewaa leads innovation shaped by two worlds - guided by whakapapa,
-            informed by science, and designed to honour people, place, and
-            planet.
+        <div className="pull-quote" ref={statementRef}>
+          <span className="pull-quote-mark" aria-hidden="true">&ldquo;</span>
+          <p className="pull-quote-text">
+            Hinewaa is led by Aimee Kaio, an Indigenous strategic leader with experience across iwi governance, Crown systems, climate strategy and regional economic development. Her work spans commercial–taiao interfaces, system transformation and global governance, including research on Indigenous participation within the Antarctic Treaty System. Aimee brings two decades of senior leadership experience navigating complex environments where culture, policy, science and investment intersect.
           </p>
+          <cite className="pull-quote-cite">Aimee Kaio — Founder &amp; Lead Strategist</cite>
         </div>
       </div>
     </section>
