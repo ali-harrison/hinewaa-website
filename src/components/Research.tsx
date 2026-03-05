@@ -1,25 +1,44 @@
+import { useEffect, useRef } from 'react'
+import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
+
 function Research() {
+  const headerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (headerRef.current) {
+      fadeInOnScroll(headerRef.current, { y: 30 })
+    }
+
+    if (contentRef.current) {
+      fadeInOnScroll(contentRef.current, { y: 30, delay: 0.1 })
+    }
+
+    if (ctaRef.current) {
+      fadeInOnScroll(ctaRef.current, { y: 20 })
+    }
+
+    return () => cleanupScrollTriggers()
+  }, [])
+
   return (
-    <section className="research section" id="research">
+    <section className="research section section-numbered section-divider" id="research" data-section-number="06">
       <div className="research-container">
-        <div className="research-header">
+        <div className="research-header" ref={headerRef}>
           <h2 className="research-title">
             Research & <em>Innovation</em>
           </h2>
         </div>
 
-        <div className="research-content">
+        <div className="research-content" ref={contentRef}>
           <div className="research-main">
             <h3>Indigenous Voice in Global Systems</h3>
             <p>
-              Through doctoral research, Hinewaa is exploring how Kāi Tahu and
-              Indigenous voices can shape governance in the Antarctic Treaty
-              System and Southern Ocean decision-making.
+              Hinewaa contributes research examining how Indigenous peoples can strengthen participation within international governance systems, including the Antarctic Treaty framework.
             </p>
             <p>
-              This work bridges mātauranga Māori with international policy,
-              ensuring Indigenous perspectives influence the systems that govern
-              our shared future.
+              This work connects mātauranga Māori with environmental law, climate policy and global decision-making structures — advancing Indigenous authority within evolving environmental regimes.
             </p>
           </div>
 
@@ -28,16 +47,16 @@ function Research() {
               <h4>Research Focus Areas</h4>
               <ul className="topics-list">
                 <li>Antarctic Treaty System & Indigenous participation</li>
-                <li>Southern Ocean governance</li>
-                <li>Climate adaptation & food systems</li>
+                <li>Southern Ocean environmental governance</li>
+                <li>Climate adaptation and food-ocean systems</li>
                 <li>Regional economic transformation</li>
-                <li>Indigenous-led innovation frameworks</li>
+                <li>Indigenous-led innovation and governance frameworks</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="research-cta">
+        <div className="research-cta" ref={ctaRef}>
           <p>Insights, publications, and thought leadership coming soon.</p>
         </div>
       </div>

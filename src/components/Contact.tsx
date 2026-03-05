@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { fadeInOnScroll, staggerFadeIn, cleanupScrollTriggers } from '../utils/animations'
 import logoImage from '../assets/images/Vector.png'
 
-gsap.registerPlugin(ScrollTrigger)
-
 function Contact() {
-  const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [formStatus, setFormStatus] = useState<
+    'idle' | 'submitting' | 'success' | 'error'
+  >('idle')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,112 +41,42 @@ function Contact() {
   }
 
   useEffect(() => {
-    // Ensure elements are visible by default
     if (headerRef.current) {
-      gsap.set(headerRef.current, { opacity: 1 })
+      fadeInOnScroll(headerRef.current, { y: 30 })
     }
+
     if (infoRef.current) {
-      gsap.set(infoRef.current, { opacity: 1 })
+      fadeInOnScroll(infoRef.current, { y: 30, delay: 0.1 })
+
+      const items = infoRef.current.querySelectorAll('.contact-item')
+      staggerFadeIn(items, {
+        y: 20,
+        stagger: 0.1,
+        trigger: infoRef.current,
+      })
     }
+
     if (formRef.current) {
-      gsap.set(formRef.current, { opacity: 1 })
+      fadeInOnScroll(formRef.current, { y: 30, delay: 0.2 })
     }
 
-    // Header animation
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(headerRef.current, { opacity: 1, y: 0 }),
-        },
-      }
-    )
-
-    // Info section slide in from left
-    gsap.fromTo(
-      infoRef.current,
-      { opacity: 0, x: -60 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: infoRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(infoRef.current, { opacity: 1, x: 0 }),
-        },
-      }
-    )
-
-    // Form slide in from right
-    gsap.fromTo(
-      formRef.current,
-      { opacity: 0, x: 60 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(formRef.current, { opacity: 1, x: 0 }),
-        },
-      }
-    )
-
-    // Animate contact items with stagger
-    const contactItems = document.querySelectorAll('.contact-item')
-    contactItems.forEach((item, index) => {
-      gsap.fromTo(
-        item,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          delay: index * 0.15 + 0.3,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: infoRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
-    })
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
+    return () => cleanupScrollTriggers()
   }, [])
 
   return (
-    <section className="contact section" id="contact" ref={sectionRef}>
+    <section className="contact section section-numbered" id="contact" data-section-number="07">
       <div className="contact-container">
         <div className="contact-header" ref={headerRef}>
           <h2 className="contact-title">
-            Share Your <em>Kaupapa</em>
+            Share your kaupapa | <em>Kōrero</em>
           </h2>
           <p className="contact-intro">
-            If you'd like to explore potential mahi with Hinewaa - whether strategy, innovation, or research - we'd love to hear from you. Tell us a little about your kaupapa and we'll be in touch.
+            If you'd like to explore potential mahi with Hinewaa - whether strategy, systems innovation, or research - we'd love to hear from you.
           </p>
         </div>
 
         <div className="contact-content">
           <div className="contact-info" ref={infoRef}>
-            <h3>Get In Touch</h3>
             <div className="contact-details">
               <div className="contact-item">
                 <strong>Email</strong>
@@ -165,7 +93,12 @@ function Contact() {
             </div>
           </div>
 
-          <form className="contact-form" ref={formRef} onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            ref={formRef}
+            onSubmit={handleSubmit}
+            aria-label="Contact form"
+          >
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Name</label>
@@ -195,14 +128,15 @@ function Contact() {
             </div>
 
             {formStatus === 'success' && (
-              <div className="form-message form-success">
-                Thank you! Your message has been sent successfully.
+              <div className="form-message form-success" role="status">
+                Kā manaakitaka. Your message has been sent successfully.
               </div>
             )}
 
             {formStatus === 'error' && (
-              <div className="form-message form-error">
-                Sorry, there was an error sending your message. Please try again or email us directly.
+              <div className="form-message form-error" role="alert">
+                Sorry, there was an error sending your message. Please try again
+                or email us directly.
               </div>
             )}
 
@@ -211,14 +145,16 @@ function Contact() {
               className="btn-submit"
               disabled={formStatus === 'submitting'}
             >
-              {formStatus === 'submitting' ? 'Sending...' : 'Start a Conversation'}
+              {formStatus === 'submitting'
+                ? 'Sending...'
+                : 'Start a Conversation'}
               <span>→</span>
             </button>
           </form>
         </div>
       </div>
 
-      <footer className="footer">
+      <footer className="footer" role="contentinfo">
         <div className="footer-container">
           <div className="footer-content">
             <div className="footer-left">
@@ -234,26 +170,42 @@ function Contact() {
               </p>
             </div>
 
-            <nav className="footer-nav">
-              <h4>Quick Links</h4>
+            <nav className="footer-nav" aria-label="Footer navigation">
               <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#impact">Impact</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                  <a href="#hero">Home</a>
+                </li>
+                <li>
+                  <a href="#about">Ko wai mātou?</a>
+                </li>
+                <li>
+                  <a href="#services">Kā Mahi</a>
+                </li>
+                <li>
+                  <a href="#impact">Kā pūtaka</a>
+                </li>
+                <li>
+                  <a href="#research">Rangahau</a>
+                </li>
+                <li>
+                  <a href="#contact">Kōrero</a>
+                </li>
               </ul>
             </nav>
 
             <div className="footer-social">
-              <h4>Connect With Us</h4>
+              <h4>Whakapā mai</h4>
               <div className="social-links">
                 <a href="mailto:aimee@hinewaa.com" className="social-link">
-                  <span>Email</span>
+                  Email
                 </a>
-                <a href="https://linkedin.com/company/hinewaa" target="_blank" rel="noopener noreferrer" className="social-link">
-                  <span>LinkedIn</span>
+                <a
+                  href="https://linkedin.com/company/hinewaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  LinkedIn
                 </a>
               </div>
             </div>

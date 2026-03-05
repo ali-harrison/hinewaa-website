@@ -1,189 +1,73 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { fadeInOnScroll, staggerFadeInWithRotation, createParallax, cleanupScrollTriggers } from '../utils/animations'
 
 function Impact() {
-  const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
-  const statsRef = useRef<(HTMLDivElement | null)[]>([])
+  const statsRef = useRef<HTMLDivElement>(null)
   const statementRef = useRef<HTMLDivElement>(null)
 
   const impacts = [
     {
-      metric: '5+',
-      label: 'Years Experience',
-      description: 'Leading Indigenous-centered strategy and innovation',
+      metric: '20+ years',
+      label: 'Senior Leadership across iwi, Crown and regional systems',
+      description: 'Experience shaping strategy, investment and governance in complex environments.',
     },
     {
-      metric: '3',
-      label: 'Key Sectors',
-      description: 'Strategy, Climate, and Regional Development',
+      metric: 'Multi-sector',
+      label: 'Climate, Indigenous economies, public policy and environmental governance',
+      description: 'Operating at the interface of commercial, taiao and regulatory systems.',
     },
     {
-      metric: 'Global',
-      label: 'Reach',
-      description: 'From Aotearoa to Antarctic governance',
+      metric: 'Aotearoa & Global',
+      label: 'From Te Waipounamu to Antarctic governance systems',
+      description: 'Contributing Indigenous voice within regional and international frameworks.',
     },
   ]
 
   useEffect(() => {
-    // Ensure elements are visible by default
     if (headerRef.current) {
-      gsap.set(headerRef.current, { opacity: 1 })
+      fadeInOnScroll(headerRef.current, { y: 30 })
     }
 
-    statsRef.current.forEach((stat) => {
-      if (stat) {
-        gsap.set(stat, { opacity: 1 })
-      }
-    })
+    if (statsRef.current) {
+      const cards = statsRef.current.querySelectorAll('.impact-stat')
+      staggerFadeInWithRotation(cards, {
+        y: 40,
+        rotation: 2,
+        stagger: 0.15,
+        trigger: statsRef.current,
+      })
+    }
 
     if (statementRef.current) {
-      gsap.set(statementRef.current, { opacity: 1 })
+      fadeInOnScroll(statementRef.current, { y: 30 })
+      createParallax(statementRef.current, { speed: 0.1 })
     }
 
-    // Header animation
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(headerRef.current, { opacity: 1, y: 0 }),
-        },
-      }
-    )
-
-    // Stats counter animations
-    statsRef.current.forEach((stat, index) => {
-      if (stat) {
-        const metric = stat.querySelector('.impact-metric')
-
-        // Stat card entrance
-        gsap.fromTo(
-          stat,
-          {
-            opacity: 0,
-            scale: 0.8,
-            y: 60,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.8,
-            delay: index * 0.2,
-            ease: 'back.out(1.4)',
-            scrollTrigger: {
-              trigger: stat,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-              onEnter: () => gsap.to(stat, { opacity: 1, scale: 1, y: 0 }),
-            },
-          }
-        )
-
-        // Metric number scale animation
-        if (metric) {
-          gsap.fromTo(
-            metric,
-            { scale: 0.5, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.6,
-              delay: index * 0.2 + 0.3,
-              ease: 'elastic.out(1, 0.5)',
-              scrollTrigger: {
-                trigger: stat,
-                start: 'top 80%',
-                toggleActions: 'play none none none',
-              },
-            }
-          )
-        }
-
-        // Subtle float animation on scroll
-        gsap.to(stat, {
-          y: -15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: stat,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        })
-      }
-    })
-
-    // Statement animation
-    gsap.fromTo(
-      statementRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: statementRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => gsap.to(statementRef.current, { opacity: 1, y: 0 }),
-        },
-      }
-    )
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
+    return () => cleanupScrollTriggers()
   }, [])
 
   return (
-    <section className="impact section" id="impact" ref={sectionRef}>
+    <section className="impact section section-numbered section-divider" id="impact" data-section-number="04">
       <div className="impact-container">
         <div className="impact-header" ref={headerRef}>
           <h2 className="impact-title">
-            Our <em>Impact</em>
+            Kā pūtaka | Our Impact
           </h2>
+          <h3>Impact in Practice</h3>
           <p className="impact-intro">
-            Trusted by iwi, government, and industry to deliver transformation
-            that matters.
+            Hinewaa contributes to system-level transformation across iwi, Crown and environmental governance contexts.
           </p>
         </div>
 
-        <div className="impact-stats">
+        <div className="impact-stats" ref={statsRef}>
           {impacts.map((impact, index) => (
-            <div
-              key={index}
-              className="impact-stat"
-              ref={(el) => {
-                statsRef.current[index] = el
-              }}
-            >
+            <div key={index} className="impact-stat">
               <div className="impact-metric">{impact.metric}</div>
               <div className="impact-label">{impact.label}</div>
               <p className="impact-description">{impact.description}</p>
             </div>
           ))}
-        </div>
-
-        <div className="impact-statement" ref={statementRef}>
-          <h3>Outcomes That Endure</h3>
-          <p>
-            Our work helps shift how iwi, government, and industry think and act
-            - embedding Indigenous values and intergenerational thinking into
-            national and regional systems.
-          </p>
         </div>
       </div>
     </section>

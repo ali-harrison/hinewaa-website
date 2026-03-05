@@ -25,7 +25,7 @@ function Navigation() {
 
   return (
     <>
-      <nav className={`navigation ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`navigation ${isScrolled ? 'scrolled' : ''}`} aria-label="Main navigation">
         <div className="nav-container">
           <div className="nav-logo">
             <button
@@ -42,19 +42,23 @@ function Navigation() {
 
           <ul className="nav-links">
             <li>
-              <button onClick={() => scrollToSection('about')}>About</button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection('services')}>
-                Services
+              <button onClick={() => scrollToSection('about')}>
+                <span className="nav-reo">Ko wai mātou?</span><span className="nav-en"> | Who are we?</span>
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection('impact')}>Impact</button>
+              <button onClick={() => scrollToSection('services')}>
+                <span className="nav-reo">Kā mahi</span><span className="nav-en"> | Our services</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => scrollToSection('impact')}>
+                <span className="nav-reo">Kā pūtaka</span><span className="nav-en"> | Our impact</span>
+              </button>
             </li>
             <li>
               <button onClick={() => scrollToSection('research')}>
-                Research
+                <span className="nav-reo">Rangahau</span><span className="nav-en"> | Research</span>
               </button>
             </li>
             <li>
@@ -62,7 +66,7 @@ function Navigation() {
                 onClick={() => scrollToSection('contact')}
                 className="nav-cta"
               >
-                Share Your Kaupapa
+                Whakapā mai | Contact us
               </button>
             </li>
           </ul>
