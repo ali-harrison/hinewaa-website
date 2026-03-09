@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SITE_META } from './constants/site'
 import Navigation from './components/Navigation'
 import About from './components/About'
 import Hero from './components/Hero'
@@ -16,6 +17,7 @@ import LoadingScreen from './components/LoadingScreen'
 
 function App() {
   useEffect(() => {
+    document.title = SITE_META.title
     gsap.registerPlugin(ScrollTrigger)
 
     const lenis = new Lenis({

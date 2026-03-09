@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { fadeInOnScroll, staggerFadeIn, cleanupScrollTriggers } from '../utils/animations'
 import logoImage from '../assets/images/Vector.png'
+import { SECTION_IDS, NAV_LINKS, COMPANY, CONTACT_INFO } from '../constants/site'
 
 function Contact() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -64,7 +65,7 @@ function Contact() {
   }, [])
 
   return (
-    <section className="contact section section-numbered" id="contact" data-section-number="07">
+    <section className="contact section section-numbered" id={SECTION_IDS.contact} data-section-number="07">
       <div className="contact-container">
         <div className="contact-header" ref={headerRef}>
           <h2 className="contact-title">
@@ -80,15 +81,15 @@ function Contact() {
             <div className="contact-details">
               <div className="contact-item">
                 <strong>Email</strong>
-                <a href="mailto:aimee@hinewaa.com">aimee@hinewaa.com</a>
+                <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
               </div>
               <div className="contact-item">
                 <strong>Phone</strong>
-                <a href="tel:021408174">021 408 174</a>
+                <a href={`tel:${CONTACT_INFO.phoneHref}`}>{CONTACT_INFO.phone}</a>
               </div>
               <div className="contact-item">
                 <strong>Location</strong>
-                <p>Aotearoa New Zealand</p>
+                <p>{CONTACT_INFO.location}</p>
               </div>
             </div>
           </div>
@@ -161,46 +162,35 @@ function Contact() {
               <div className="footer-logo">
                 <img
                   src={logoImage}
-                  alt="Hinewaa"
+                  alt={COMPANY.name}
                   className="footer-logo-image"
                 />
               </div>
               <p className="footer-copyright">
-                &copy; 2025 Hinewaa Ltd. All rights reserved.
+                &copy; {COMPANY.founded} {COMPANY.name}. All rights reserved.
               </p>
             </div>
 
             <nav className="footer-nav" aria-label="Footer navigation">
               <ul>
-                <li>
-                  <a href="#hero">Home</a>
-                </li>
-                <li>
-                  <a href="#about">Ko wai mātou?</a>
-                </li>
-                <li>
-                  <a href="#services">Kā Mahi</a>
-                </li>
-                <li>
-                  <a href="#impact">Kā pūtaka</a>
-                </li>
-                <li>
-                  <a href="#research">Rangahau</a>
-                </li>
-                <li>
-                  <a href="#contact">Kōrero</a>
-                </li>
+                {NAV_LINKS.map(link => (
+                  <li key={link.id}>
+                    <a href={link.href}>
+                      {link.id === SECTION_IDS.hero ? link.english : link.reo}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </nav>
 
             <div className="footer-social">
               <h4>Whakapā mai</h4>
               <div className="social-links">
-                <a href="mailto:aimee@hinewaa.com" className="social-link">
+                <a href={`mailto:${CONTACT_INFO.email}`} className="social-link">
                   Email
                 </a>
                 <a
-                  href="https://linkedin.com/company/hinewaa"
+                  href={CONTACT_INFO.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"

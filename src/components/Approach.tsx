@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { fadeInOnScroll, staggerFadeInWithRotation, createParallax, cleanupScrollTriggers } from '../utils/animations'
+import { SECTION_IDS, FOUNDER } from '../constants/site'
 
 function Approach() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -48,7 +49,7 @@ function Approach() {
   }, [])
 
   return (
-    <section className="approach section section-numbered section-divider" id="approach" data-section-number="03">
+    <section className="approach section section-numbered section-divider" id={SECTION_IDS.approach} data-section-number="03">
       <div className="approach-container">
         <div className="approach-header" ref={headerRef}>
           <h2 className="approach-title">
@@ -74,10 +75,8 @@ function Approach() {
 
         <div className="pull-quote" ref={statementRef}>
           <span className="pull-quote-mark" aria-hidden="true">&ldquo;</span>
-          <p className="pull-quote-text">
-            Hinewaa is led by Aimee Kaio, an Indigenous strategic leader with experience across iwi governance, Crown systems, climate strategy and regional economic development. Her work spans commercial–taiao interfaces, system transformation and global governance, including research on Indigenous participation within the Antarctic Treaty System. Aimee brings two decades of senior leadership experience navigating complex environments where culture, policy, science and investment intersect.
-          </p>
-          <cite className="pull-quote-cite">Aimee Kaio — Founder &amp; Lead Strategist</cite>
+          <p className="pull-quote-text">{FOUNDER.longBio}</p>
+          <cite className="pull-quote-cite">{FOUNDER.name} — {FOUNDER.role}</cite>
         </div>
       </div>
     </section>

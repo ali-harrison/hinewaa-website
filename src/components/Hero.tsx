@@ -4,6 +4,7 @@ import SplitType from 'split-type'
 import { MOTION, createParallax, cleanupScrollTriggers } from '../utils/animations'
 import { useMagnetic } from '../hooks/useMagnetic'
 import heroImage from '../assets/images/hero-antarctic.jpeg'
+import { SECTION_IDS, CTA_PRIMARY } from '../constants/site'
 
 function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -81,7 +82,7 @@ function Hero() {
   }, [])
 
   return (
-    <section className="hero" id="hero" ref={heroRef}>
+    <section className="hero" id={SECTION_IDS.hero} ref={heroRef}>
       <div className="hero-container">
         <div className="hero-content">
           <h1 className="hero-title" ref={titleRef}>
@@ -102,11 +103,11 @@ function Hero() {
               <button
                 className="btn-hero-primary"
                 onClick={() => {
-                  const contactSection = document.getElementById('contact')
+                  const contactSection = document.getElementById(SECTION_IDS.contact)
                   contactSection?.scrollIntoView({ behavior: 'smooth' })
                 }}
               >
-                Whakapā mai | Contact us
+                {CTA_PRIMARY.label}
                 <span>→</span>
               </button>
             </div>
