@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { fadeInOnScroll, staggerFadeInWithRotation, cleanupScrollTriggers } from '../utils/animations'
 import aboutImage from '../assets/images/about-aimee.jpg'
+import { SECTION_IDS, NAV_LINKS, FOUNDER } from '../constants/site'
 
 function About() {
   const leftRef = useRef<HTMLDivElement>(null)
@@ -30,9 +31,9 @@ function About() {
   }, [])
 
   return (
-    <section className="about section section-numbered section-divider" id="about" data-section-number="01">
+    <section className="about section section-numbered section-divider" id={SECTION_IDS.about} data-section-number="01">
       <div className="about-container">
-        <span className="about-accent">Ko wai mātou?</span>
+        <span className="about-accent">{NAV_LINKS.find(l => l.id === SECTION_IDS.about)?.reo}</span>
 
         <div className="about-layout">
           <div className="about-left" ref={leftRef}>
@@ -44,8 +45,8 @@ function About() {
                 loading="lazy"
               />
               <div className="image-caption">
-                <p className="caption-name">Aimee Kaio</p>
-                <p className="caption-role">Founder & Lead Strategist</p>
+                <p className="caption-name">{FOUNDER.name}</p>
+                <p className="caption-role">{FOUNDER.role}</p>
               </div>
             </div>
 
@@ -56,9 +57,7 @@ function About() {
 
           <div className="about-right" ref={rightRef}>
             <div className="about-main">
-              <strong className="about-lead">
-                Hinewaa is led by Aimee Kaio and works alongside trusted collaborators and whānau where specialist expertise is required.
-              </strong>
+              <strong className="about-lead">{FOUNDER.shortBio}</strong>
 
               <p>
                 Hinewaa is an Indigenous-led strategic advisory practice working where community, iwi, Crown, research and industry intersect.

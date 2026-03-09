@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
+import { SECTION_IDS } from '../constants/site'
 
 function Research() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -23,7 +24,7 @@ function Research() {
   }, [])
 
   return (
-    <section className="research section section-numbered section-divider" id="research" data-section-number="06">
+    <section className="research section section-numbered section-divider" id={SECTION_IDS.research} data-section-number="06">
       <div className="research-container">
         <div className="research-header" ref={headerRef}>
           <h2 className="research-title">

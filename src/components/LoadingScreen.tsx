@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import gsap from 'gsap'
 import logoImage from '../assets/images/Vector.png'
+import { COMPANY } from '../constants/site'
 
 function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true)
@@ -57,7 +58,7 @@ function LoadingScreen() {
         <div className="loading-logo">
           <img
             src={logoImage}
-            alt="Hinewaa Ltd"
+            alt={COMPANY.name}
             className="loading-logo-image"
           />
         </div>

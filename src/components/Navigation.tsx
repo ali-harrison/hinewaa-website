@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import logoImage from '../assets/images/Vector.png'
+import { NAV_LINKS, SECTION_IDS, CTA_PRIMARY, COMPANY } from '../constants/site'
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -29,44 +30,34 @@ function Navigation() {
         <div className="nav-container">
           <div className="nav-logo">
             <button
-              onClick={() => scrollToSection('hero')}
+              onClick={() => scrollToSection(SECTION_IDS.hero)}
               className="logo-button"
             >
               <img
                 src={logoImage}
-                alt="Hinewaa Ltd"
+                alt={COMPANY.name}
                 className="logo-image"
               />
             </button>
           </div>
 
           <ul className="nav-links">
-            <li>
-              <button onClick={() => scrollToSection('about')}>
-                <span className="nav-reo">Ko wai mātou?</span><span className="nav-en"> | Who are we?</span>
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection('services')}>
-                <span className="nav-reo">Kā mahi</span><span className="nav-en"> | Our services</span>
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection('impact')}>
-                <span className="nav-reo">Kā pūtaka</span><span className="nav-en"> | Our impact</span>
-              </button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection('research')}>
-                <span className="nav-reo">Rangahau</span><span className="nav-en"> | Research</span>
-              </button>
-            </li>
+            {NAV_LINKS
+              .filter(link => link.id !== SECTION_IDS.hero && link.id !== SECTION_IDS.contact)
+              .map(link => (
+                <li key={link.id}>
+                  <button onClick={() => scrollToSection(link.id)}>
+                    <span className="nav-reo">{link.reo}</span><span className="nav-en"> | {link.english}</span>
+                  </button>
+                </li>
+              ))
+            }
             <li>
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection(SECTION_IDS.contact)}
                 className="nav-cta"
               >
-                Whakapā mai | Contact us
+                {CTA_PRIMARY.label}
               </button>
             </li>
           </ul>

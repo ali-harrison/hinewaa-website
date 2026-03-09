@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
+import { SECTION_IDS } from '../constants/site'
 
 function Services() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -200,7 +201,7 @@ function Services() {
   return (
     <section
       className="services section section-numbered section-divider"
-      id="services"
+      id={SECTION_IDS.services}
       ref={sectionRef}
       data-section-number="02"
     >

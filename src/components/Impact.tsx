@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { fadeInOnScroll, staggerFadeInWithRotation, createParallax, cleanupScrollTriggers } from '../utils/animations'
+import { SECTION_IDS } from '../constants/site'
 
 function Impact() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -48,7 +49,7 @@ function Impact() {
   }, [])
 
   return (
-    <section className="impact section section-numbered section-divider" id="impact" data-section-number="04">
+    <section className="impact section section-numbered section-divider" id={SECTION_IDS.impact} data-section-number="04">
       <div className="impact-container">
         <div className="impact-header" ref={headerRef}>
           <h2 className="impact-title">
