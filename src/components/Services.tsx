@@ -56,9 +56,13 @@ function Services() {
         <div className="services-track" ref={trackRef}>
           {services.map((service, index) => (
             <div key={index} className="service-card nub-lit">
-              <span className="service-number">{service.number}</span>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-description">{service.description}</p>
+              <div className="service-card-inner">
+                <div className="service-card-label">
+                  <span className="service-number">{service.number}</span>
+                  <h3 className="service-title">{service.title}</h3>
+                </div>
+                <p className="service-description">{service.description}</p>
+              </div>
             </div>
           ))}
         </div>

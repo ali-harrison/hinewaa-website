@@ -35,20 +35,13 @@
   color: var(--color-gray-400);
 }
 
-.services-intro {
-  font-size: var(--text-body);
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-  margin: 0 auto;
-  font-weight: 400;
-  max-width: 600px;
-}
+/* ── Accordion Track ── */
 
-/* ── Card Grid ── */
 .services-track {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  display: flex;
+  height: 440px;
+  align-items: stretch;
+  gap: 0.75rem;
   padding: 0 var(--grid-padding) var(--spacing-section);
   max-width: var(--grid-max-width);
   margin: 0 auto;
@@ -56,21 +49,28 @@
   position: relative;
 }
 
+/* ── Card ── */
+
 .service-card {
+  flex: 1;
+  overflow: hidden;
   background: var(--color-bg-card);
-  padding: 3rem 2.5rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   position: relative;
-  overflow: visible;
-  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: flex 0.5s ease, border-color 0.4s ease;
 }
 
-/* Corner nubs — hint at the SVG border before it draws */
+.service-card:hover {
+  flex: 5;
+  border-color: var(--color-gray-500);
+}
+
+/* Corner nubs */
 .service-card::before,
 .service-card::after {
   content: '';
@@ -102,9 +102,34 @@
   border-color: rgba(82, 168, 130, 0.6);
 }
 
-.service-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-gray-500);
+/* ── Rotating inner content ── */
+
+.service-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  /* min-width ≈ card height: ensures content visually fills the card height when rotated */
+  min-width: 400px;
+  padding: 2rem 2.5rem;
+  transform: rotate(-90deg);
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-inner {
+  transform: rotate(0deg);
+}
+
+/* Label: number + title */
+.service-card-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* prevent wrapping in collapsed state so rotation stays clean */
+  white-space: nowrap;
+}
+
+.service-card:hover .service-card-label {
+  white-space: normal;
 }
 
 .service-number {
@@ -123,33 +148,71 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  transition: color 0.5s ease;
 }
 
+/* Description: hidden until expanded */
 .service-description {
   color: var(--color-text-secondary);
   line-height: 1.6;
   font-size: var(--text-body-sm);
   margin: 0;
   font-weight: 400;
+  opacity: 0;
+  /* delay matches card expansion so text appears once the card is wide */
+  transition: opacity 0.4s ease 0.2s;
+}
+
+.service-card:hover .service-description {
+  opacity: 1;
 }
 
 /* ── Tablet ── */
 @media (max-width: 1024px) {
-  .services-track { gap: 1.5rem; }
-  .service-card { padding: 2.5rem 2rem; }
+  .services-track {
+    height: 400px;
+    gap: 0.5rem;
+  }
+  .service-card-inner {
+    min-width: 360px;
+    padding: 1.5rem 2rem;
+  }
 }
 
-/* ── Mobile ── */
+/* ── Mobile: revert to vertical stack ── */
 @media (max-width: 768px) {
   .services-header { padding: var(--spacing-section-mobile) 1.5rem 2rem; }
+
   .services-track {
-    grid-template-columns: 1fr;
-    padding: 0 1.5rem var(--spacing-section-mobile);
+    flex-direction: column;
+    height: auto;
     gap: 1rem;
+    padding: 0 1.5rem var(--spacing-section-mobile);
   }
+
   .service-card {
-    min-height: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 180px;
+  }
+
+  .service-card-inner {
+    transform: none;
+    min-width: unset;
+    width: 100%;
     padding: 2rem;
+  }
+
+  /* no transition on mobile — avoids flash of rotated content */
+  .service-card:hover .service-card-inner {
+    transform: none;
+  }
+
+  .service-card-label {
+    white-space: normal;
+  }
+
+  .service-description {
+    opacity: 1;
+    transition: none;
   }
 }
