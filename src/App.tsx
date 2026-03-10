@@ -7,7 +7,6 @@ import Navigation from './components/Navigation'
 import About from './components/About'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import Approach from './components/Approach'
 import Impact from './components/Impact'
 import Collabs from './components/Collabs'
 import Research from './components/Research'
@@ -48,7 +47,6 @@ function App() {
       <Hero />
       <About />
       <Services />
-      <Approach />
       <Impact />
       <Collabs />
       <Research />

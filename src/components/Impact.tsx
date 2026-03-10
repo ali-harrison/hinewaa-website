@@ -49,7 +49,7 @@ function Impact() {
   }, [])
 
   return (
-    <section className="impact section section-numbered section-divider" id={SECTION_IDS.impact} data-section-number="04">
+    <section className="impact section section-numbered section-divider" id={SECTION_IDS.impact} data-section-number="03">
       <div className="impact-container">
         <div className="impact-header" ref={headerRef}>
           <h2 className="impact-title">
