@@ -5,7 +5,6 @@ export const SECTION_IDS = {
   hero: 'hero',
   about: 'about',
   services: 'services',
-  approach: 'approach',
   impact: 'impact',
   research: 'research',
   contact: 'contact',
@@ -87,12 +86,8 @@ export const COMPANY = {
 export const FOUNDER = {
   name: 'Aimee Kaio',
   role: 'Founder & Lead Strategist',
-  // Short version — used as the lead paragraph in the About section.
   shortBio:
     'Hinewaa is led by Aimee Kaio and works alongside trusted collaborators and whānau where specialist expertise is required.',
-  // Long version — used as the pull quote in the Approach section.
-  longBio:
-    'Hinewaa is led by Aimee Kaio, an Indigenous strategic leader with experience across iwi governance, Crown systems, climate strategy and regional economic development. Her work spans commercial–taiao interfaces, system transformation and global governance, including research on Indigenous participation within the Antarctic Treaty System. Aimee brings two decades of senior leadership experience navigating complex environments where culture, policy, science and investment intersect.',
 } as const
 
 // ── Contact Information ───────────────────────────────────────────────────────
