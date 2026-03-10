@@ -35,13 +35,12 @@
   color: var(--color-gray-400);
 }
 
-/* ── Accordion Track ── */
+/* ── Card Grid ── */
 
 .services-track {
-  display: flex;
-  height: 440px;
-  align-items: stretch;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   padding: 0 var(--grid-padding) var(--spacing-section);
   max-width: var(--grid-max-width);
   margin: 0 auto;
@@ -49,88 +48,103 @@
   position: relative;
 }
 
-/* ── Card ── */
+/* ── Flip Card: perspective container ── */
 
 .service-card {
+  perspective: 1000px;
+  height: 380px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* ── Flip Card: rotating inner ── */
+
+.service-card-inner {
   flex: 1;
-  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── Shared face styles ── */
+
+.service-card-front,
+.service-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  position: relative;
+  padding: 3rem 2.5rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: flex 0.5s ease, border-color 0.4s ease;
+  flex-direction: column;
 }
 
-.service-card:hover {
-  flex: 5;
+/* ── Front face ── */
+
+.service-card-front {
+  gap: 1.5rem;
+  justify-content: flex-end;
+  transition: border-color 0.4s ease;
+}
+
+.service-card:hover .service-card-front {
   border-color: var(--color-gray-500);
 }
 
-/* Corner nubs */
-.service-card::before,
-.service-card::after {
+/* Corner nubs on front */
+.service-card-front::before,
+.service-card-front::after {
   content: '';
   position: absolute;
   width: 14px;
   height: 14px;
-  border-color: rgba(82, 168, 130, 0.2);
+  border-color: rgba(82, 168, 130, 0.6);
   border-style: solid;
-  transition: border-color 0.4s ease;
   z-index: 2;
 }
 
-.service-card::before {
+.service-card-front::before {
   top: 0;
   left: 0;
   border-width: 1px 0 0 1px;
   border-radius: 8px 0 0 0;
 }
 
-.service-card::after {
+.service-card-front::after {
   bottom: 0;
   right: 0;
   border-width: 0 1px 1px 0;
   border-radius: 0 0 8px 0;
 }
 
-.service-card.nub-lit::before,
-.service-card.nub-lit::after {
-  border-color: rgba(82, 168, 130, 0.6);
-}
+/* ── Back face ── */
 
-/* ── Rotating inner content ── */
-
-.service-card-inner {
-  display: flex;
-  flex-direction: column;
+.service-card-back {
+  transform: rotateY(180deg);
   gap: 1.25rem;
-  /* min-width ≈ card height: ensures content visually fills the card height when rotated */
-  min-width: 400px;
-  padding: 2rem 2.5rem;
-  transform: rotate(-90deg);
-  transition: transform 0.5s ease;
+  justify-content: center;
+  border-color: var(--color-gray-600);
 }
 
-.service-card:hover .service-card-inner {
-  transform: rotate(0deg);
+.service-card-back-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-body-sm);
+  color: var(--color-gray-400);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-/* Label: number + title */
-.service-card-label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  /* prevent wrapping in collapsed state so rotation stays clean */
-  white-space: nowrap;
-}
-
-.service-card:hover .service-card-label {
-  white-space: normal;
-}
+/* ── Typography inside cards ── */
 
 .service-number {
   font-family: var(--font-mono);
@@ -150,69 +164,56 @@
   letter-spacing: -0.02em;
 }
 
-/* Description: hidden until expanded */
 .service-description {
   color: var(--color-text-secondary);
   line-height: 1.6;
   font-size: var(--text-body-sm);
   margin: 0;
   font-weight: 400;
-  opacity: 0;
-  /* delay matches card expansion so text appears once the card is wide */
-  transition: opacity 0.4s ease 0.2s;
-}
-
-.service-card:hover .service-description {
-  opacity: 1;
 }
 
 /* ── Tablet ── */
 @media (max-width: 1024px) {
-  .services-track {
-    height: 400px;
-    gap: 0.5rem;
-  }
-  .service-card-inner {
-    min-width: 360px;
-    padding: 1.5rem 2rem;
-  }
+  .services-track { gap: 1.5rem; }
+  .service-card-front,
+  .service-card-back { padding: 2.5rem 2rem; }
 }
 
-/* ── Mobile: revert to vertical stack ── */
+/* ── Mobile: flat cards, no flip ── */
 @media (max-width: 768px) {
   .services-header { padding: var(--spacing-section-mobile) 1.5rem 2rem; }
 
   .services-track {
-    flex-direction: column;
-    height: auto;
-    gap: 1rem;
+    grid-template-columns: 1fr;
     padding: 0 1.5rem var(--spacing-section-mobile);
+    gap: 1rem;
   }
 
+  /* Disable 3D entirely */
   .service-card {
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-height: 180px;
+    height: auto;
+    perspective: none;
   }
 
   .service-card-inner {
+    transform: none !important;
+    transform-style: flat;
+    position: static;
+  }
+
+  /* Hide front (title-only face), show back (title + description) as flat card */
+  .service-card-front {
+    display: none;
+  }
+
+  .service-card-back {
+    position: static;
     transform: none;
-    min-width: unset;
-    width: 100%;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    border-color: var(--color-border);
     padding: 2rem;
-  }
-
-  /* no transition on mobile — avoids flash of rotated content */
-  .service-card:hover .service-card-inner {
-    transform: none;
-  }
-
-  .service-card-label {
-    white-space: normal;
-  }
-
-  .service-description {
-    opacity: 1;
-    transition: none;
+    gap: 1.25rem;
+    justify-content: flex-start;
   }
 }
