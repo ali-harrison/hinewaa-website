@@ -52,7 +52,7 @@
 
 .service-card {
   perspective: 1000px;
-  height: 380px;
+  height: 520px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -131,7 +131,7 @@
 .service-card-back {
   transform: rotateY(180deg);
   gap: 1.25rem;
-  justify-content: center;
+  justify-content: flex-start;
   border-color: var(--color-gray-600);
 }
 
