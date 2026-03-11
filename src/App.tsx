@@ -44,13 +44,15 @@ function App() {
       <LoadingScreen />
       <CustomCursor />
       <Navigation />
-      <Hero />
-      <About />
-      <Services />
-      <Impact />
-      <Collabs />
-      <Research />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Impact />
+        <Collabs />
+        <Research />
+        <Contact />
+      </main>
     </div>
   )
 }

@@ -283,8 +283,7 @@
 .footer-nav { grid-column: 7 / 10; }
 .footer-social { grid-column: 10 / 13; }
 
-.footer-nav h4,
-.footer-social h4 {
+.footer-social h3 {
   font-family: var(--font-heading);
   font-size: var(--text-body-sm);
   font-weight: 700;

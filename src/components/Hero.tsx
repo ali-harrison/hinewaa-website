@@ -121,6 +121,9 @@ function Hero() {
               alt="Antarctic landscape showcasing environmental leadership"
               className="hero-image"
               loading="eager"
+              fetchPriority="high"
+              width={1920}
+              height={1280}
             />
           </div>
         </div>

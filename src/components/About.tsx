@@ -43,6 +43,8 @@ function About() {
                 alt="Aimee Hinewaa Ratana"
                 className="about-image img-grayscale"
                 loading="lazy"
+                width={1434}
+                height={770}
               />
               <div className="image-caption">
                 <p className="caption-name">{FOUNDER.name}</p>
