@@ -1,49 +1,69 @@
 import { useEffect, useRef } from 'react'
-import { fadeInOnScroll, staggerFadeInWithRotation, createParallax, cleanupScrollTriggers } from '../utils/animations'
+import gsap from 'gsap'
+import { cleanupScrollTriggers } from '../utils/animations'
 import { SECTION_IDS } from '../constants/site'
 
 function Impact() {
   const headerRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
-  const statementRef = useRef<HTMLDivElement>(null)
 
   const impacts = [
     {
       metric: '20+ years',
-      label: 'Senior Leadership across iwi, Crown and regional systems',
-      description: 'Experience shaping strategy, investment and governance in complex environments.',
+      label: 'Senior Leadership',
+      description: 'Experience shaping strategy, investment and governance in complex environments across iwi, Crown and regional systems.',
     },
     {
       metric: 'Multi-sector',
-      label: 'Climate, Indigenous economies, public policy and environmental governance',
-      description: 'Operating at the interface of commercial, taiao and regulatory systems.',
+      label: 'Depth of Practice',
+      description: 'Operating at the interface of commercial, taiao and regulatory systems — climate, Indigenous economies, public policy and environmental governance.',
     },
     {
       metric: 'Aotearoa & Global',
-      label: 'From Te Waipounamu to Antarctic governance systems',
-      description: 'Contributing Indigenous voice within regional and international frameworks.',
+      label: 'Reach',
+      description: 'Contributing Indigenous voice within regional and international frameworks, from Te Waipounamu to Antarctic governance systems.',
     },
   ]
 
   useEffect(() => {
-    if (headerRef.current) {
-      fadeInOnScroll(headerRef.current, { y: 30 })
-    }
+    const header = headerRef.current
+    const stats = statsRef.current
+    if (!header || !stats) return
 
-    if (statsRef.current) {
-      const cards = statsRef.current.querySelectorAll('.impact-stat')
-      staggerFadeInWithRotation(cards, {
-        y: 40,
-        rotation: 2,
+    // ── Title line reveal ─────────────────────────────────────────────────────
+    gsap.fromTo(
+      header.querySelectorAll('.title-text'),
+      { y: '110%' },
+      {
+        y: '0%',
+        duration: 1,
+        ease: 'expo.out',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+
+    // ── Card stagger ──────────────────────────────────────────────────────────
+    gsap.fromTo(
+      stats.querySelectorAll('.impact-stat'),
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
         stagger: 0.15,
-        trigger: statsRef.current,
-      })
-    }
-
-    if (statementRef.current) {
-      fadeInOnScroll(statementRef.current, { y: 30 })
-      createParallax(statementRef.current, { speed: 0.1 })
-    }
+        scrollTrigger: {
+          trigger: stats,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
 
     return () => cleanupScrollTriggers()
   }, [])
@@ -53,9 +73,9 @@ function Impact() {
       <div className="impact-container">
         <div className="impact-header" ref={headerRef}>
           <h2 className="impact-title">
-            Kā pūtaka | Our Impact
+            <span className="title-line"><span className="title-text">Kā pūtaka</span></span>
+            <span className="title-line"><span className="title-text"><em>Our Impact</em></span></span>
           </h2>
-          <h3>Impact in Practice</h3>
           <p className="impact-intro">
             Hinewaa contributes to system-level transformation across iwi, Crown and environmental governance contexts.
           </p>
