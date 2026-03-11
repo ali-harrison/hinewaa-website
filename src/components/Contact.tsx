@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { fadeInOnScroll, staggerFadeIn, cleanupScrollTriggers } from '../utils/animations'
+import gsap from 'gsap'
+import { cleanupScrollTriggers } from '../utils/animations'
 import logoImage from '../assets/images/Vector.png'
 import { SECTION_IDS, NAV_LINKS, COMPANY, CONTACT_INFO } from '../constants/site'
 
@@ -42,23 +43,64 @@ function Contact() {
   }
 
   useEffect(() => {
-    if (headerRef.current) {
-      fadeInOnScroll(headerRef.current, { y: 30 })
-    }
+    const header = headerRef.current
+    if (!header) return
 
+    // ── Title line reveal ─────────────────────────────────────────────────────
+    gsap.fromTo(
+      header.querySelectorAll('.title-text'),
+      { y: '110%' },
+      {
+        y: '0%',
+        duration: 1,
+        ease: 'expo.out',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+
+    // ── Contact items stagger ─────────────────────────────────────────────────
     if (infoRef.current) {
-      fadeInOnScroll(infoRef.current, { y: 30, delay: 0.1 })
-
-      const items = infoRef.current.querySelectorAll('.contact-item')
-      staggerFadeIn(items, {
-        y: 20,
-        stagger: 0.1,
-        trigger: infoRef.current,
-      })
+      gsap.fromTo(
+        infoRef.current.querySelectorAll('.contact-item'),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: infoRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
     }
 
+    // ── Form fade in ──────────────────────────────────────────────────────────
     if (formRef.current) {
-      fadeInOnScroll(formRef.current, { y: 30, delay: 0.2 })
+      gsap.fromTo(
+        formRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: 0.1,
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
     }
 
     return () => cleanupScrollTriggers()
@@ -69,7 +111,12 @@ function Contact() {
       <div className="contact-container">
         <div className="contact-header" ref={headerRef}>
           <h2 className="contact-title">
-            Share your kaupapa | <em>Kōrero</em>
+            <span className="title-line">
+              <span className="title-text">Share your kaupapa</span>
+            </span>
+            <span className="title-line">
+              <span className="title-text"><em>Kōrero</em></span>
+            </span>
           </h2>
           <p className="contact-intro">
             If you'd like to explore potential mahi with Hinewaa - whether strategy, systems innovation, or research - we'd love to hear from you.

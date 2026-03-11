@@ -20,16 +20,18 @@
 
 .contact-header {
   grid-column: 1 / 9;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .contact-title {
   font-family: var(--font-heading);
   font-size: var(--text-h2);
-  line-height: 1.15;
+  line-height: 1.0;
   color: var(--color-white);
   font-weight: 800;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.5rem 0;
   letter-spacing: -0.03em;
 }
 
@@ -40,10 +42,11 @@
 }
 
 .contact-intro {
-  font-size: var(--text-body);
-  line-height: 1.6;
+  font-size: var(--text-body-sm);
+  line-height: 1.75;
   color: var(--color-text-secondary);
   margin: 0;
+  opacity: 0.75;
 }
 
 .contact-content {
@@ -72,27 +75,26 @@
 }
 
 .contact-item {
-  padding: 1.25rem;
+  padding: 1.5rem;
   background: var(--color-bg-card);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  transition: var(--transition-snappy);
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.4s ease;
 }
 
 .contact-item:hover {
-  transform: translateX(4px);
-  border-color: var(--color-gray-500);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .contact-item strong {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-primary);
   color: var(--color-gray-500);
-  margin-bottom: 0.25rem;
-  font-size: var(--text-label);
+  margin-bottom: 0.35rem;
+  font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.25em;
 }
 
 .contact-item a {
