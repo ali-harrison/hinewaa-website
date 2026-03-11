@@ -17,28 +17,26 @@ function Contact() {
     setFormStatus('submitting')
 
     const form = e.currentTarget
-    const formData = new FormData(form)
+    const data = Object.fromEntries(new FormData(form))
 
     try {
-      const response = await fetch('https://formspree.io/f/xyzrdbql', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       })
 
       if (response.ok) {
         setFormStatus('success')
         form.reset()
-        setTimeout(() => setFormStatus('idle'), 5000)
+        setTimeout(() => setFormStatus('idle'), 6000)
       } else {
         setFormStatus('error')
-        setTimeout(() => setFormStatus('idle'), 5000)
+        setTimeout(() => setFormStatus('idle'), 6000)
       }
     } catch {
       setFormStatus('error')
-      setTimeout(() => setFormStatus('idle'), 5000)
+      setTimeout(() => setFormStatus('idle'), 6000)
     }
   }
 
@@ -177,14 +175,14 @@ function Contact() {
 
             {formStatus === 'success' && (
               <div className="form-message form-success" role="status">
-                Kā manaakitaka. Your message has been sent successfully.
+                Ngā mihi — we'll be in touch.
               </div>
             )}
 
             {formStatus === 'error' && (
               <div className="form-message form-error" role="alert">
-                Sorry, there was an error sending your message. Please try again
-                or email us directly.
+                Something went wrong, please email us directly at{' '}
+                <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
               </div>
             )}
 
