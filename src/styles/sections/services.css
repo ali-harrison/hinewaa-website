@@ -51,6 +51,9 @@
   font-style: italic;
   color: var(--color-gray-400);
   font-weight: 700;
+  /* Italic characters overhang the right edge and get clipped by
+     overflow:hidden on the parent — padding-right gives them room */
+  padding-right: 0.15em;
 }
 
 /* ── Card Grid ── */
