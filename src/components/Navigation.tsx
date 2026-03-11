@@ -37,6 +37,8 @@ function Navigation() {
                 src={logoImage}
                 alt={COMPANY.name}
                 className="logo-image"
+                width={1000}
+                height={1000}
               />
             </button>
           </div>

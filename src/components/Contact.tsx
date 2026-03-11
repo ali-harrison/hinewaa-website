@@ -209,6 +209,8 @@ function Contact() {
                   src={logoImage}
                   alt={COMPANY.name}
                   className="footer-logo-image"
+                  width={1000}
+                  height={1000}
                 />
               </div>
               <p className="footer-copyright">
@@ -229,7 +231,7 @@ function Contact() {
             </nav>
 
             <div className="footer-social">
-              <h4>Whakapā mai</h4>
+              <h3>Whakapā mai</h3>
               <div className="social-links">
                 <a href={`mailto:${CONTACT_INFO.email}`} className="social-link">
                   Email

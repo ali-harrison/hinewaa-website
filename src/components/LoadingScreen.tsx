@@ -60,6 +60,8 @@ function LoadingScreen() {
             src={logoImage}
             alt={COMPANY.name}
             className="loading-logo-image"
+            width={1000}
+            height={1000}
           />
         </div>
 
