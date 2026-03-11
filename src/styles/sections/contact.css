@@ -89,7 +89,7 @@
 .contact-item strong {
   display: block;
   font-family: var(--font-primary);
-  color: var(--color-gray-500);
+  color: var(--color-gray-400);
   margin-bottom: 0.35rem;
   font-size: 10px;
   font-weight: 500;
@@ -155,7 +155,7 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--color-gray-500);
+  color: var(--color-gray-400);
 }
 
 .form-group input:focus,
@@ -275,7 +275,7 @@
 .footer-copyright {
   margin: 0;
   font-size: var(--text-body-sm);
-  opacity: 0.4;
+  opacity: 0.55;
   line-height: 1.6;
   max-width: 300px;
 }
@@ -304,7 +304,7 @@
 .footer-nav li { margin: 0; }
 
 .footer-nav a {
-  color: var(--color-gray-500);
+  color: var(--color-gray-400);
   text-decoration: none;
   font-size: var(--text-body-sm);
   transition: var(--transition-snappy);
@@ -340,7 +340,7 @@
 }
 
 .social-link {
-  color: var(--color-gray-500);
+  color: var(--color-gray-400);
   text-decoration: none;
   font-size: var(--text-body-sm);
   transition: var(--transition-snappy);
