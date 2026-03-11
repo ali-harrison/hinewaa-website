@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
+import gsap from 'gsap'
+import { cleanupScrollTriggers } from '../utils/animations'
 import { SECTION_IDS } from '../constants/site'
 
 function Research() {
@@ -8,16 +9,60 @@ function Research() {
   const ctaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (headerRef.current) {
-      fadeInOnScroll(headerRef.current, { y: 30 })
-    }
+    const header = headerRef.current
+    if (!header) return
 
+    // ── Title line reveal ─────────────────────────────────────────────────────
+    gsap.fromTo(
+      header.querySelectorAll('.title-text'),
+      { y: '110%' },
+      {
+        y: '0%',
+        duration: 1,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+
+    // ── Content + cta fade in ─────────────────────────────────────────────────
     if (contentRef.current) {
-      fadeInOnScroll(contentRef.current, { y: 30, delay: 0.1 })
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
     }
 
     if (ctaRef.current) {
-      fadeInOnScroll(ctaRef.current, { y: 20 })
+      gsap.fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
     }
 
     return () => cleanupScrollTriggers()
@@ -28,7 +73,9 @@ function Research() {
       <div className="research-container">
         <div className="research-header" ref={headerRef}>
           <h2 className="research-title">
-            Research & <em>Innovation</em>
+            <span className="title-line">
+              <span className="title-text">Research & <em>Innovation</em></span>
+            </span>
           </h2>
         </div>
 
