@@ -74,7 +74,7 @@ h4, h5, h6 {
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.75;
 }
 
 a {
@@ -151,6 +151,19 @@ section:not(.pin-spacer *) {
   height: 1px;
   background: var(--color-gray-700);
   z-index: 1;
+}
+
+/* ── Title clip-reveal utility ── */
+/* Wrap each title line in .title-line and the text in .title-text.
+   GSAP animates .title-text from translateY(110%) → 0. */
+
+.title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.title-text {
+  display: block;
 }
 
 /* ── Image Treatment Utilities ── */
