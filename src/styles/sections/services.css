@@ -13,6 +13,8 @@
   z-index: 1;
 }
 
+/* ── Header + title reveal ── */
+
 .services-header {
   max-width: var(--grid-max-width);
   margin: 0 auto;
@@ -26,13 +28,21 @@
   font-size: var(--text-h2);
   color: var(--color-white);
   font-weight: 800;
-  margin: 0 0 1rem 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
 }
 
-.services-title em {
-  font-style: italic;
-  font-weight: 800;
-  color: var(--color-gray-400);
+/* Each line is an overflow:hidden clip — GSAP animates .services-title-text inside */
+.services-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.services-title-text {
+  display: block;
 }
 
 /* ── Card Grid ── */
@@ -40,7 +50,7 @@
 .services-track {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2px;
   padding: 0 var(--grid-padding) var(--spacing-section);
   max-width: var(--grid-max-width);
   margin: 0 auto;
@@ -48,172 +58,209 @@
   position: relative;
 }
 
-/* ── Flip Card: perspective container ── */
+/* ── Card ── */
 
 .service-card {
-  perspective: 1000px;
-  height: 520px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-/* ── Flip Card: rotating inner ── */
-
-.service-card-inner {
-  flex: 1;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.service-card:hover .service-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* ── Shared face styles ── */
-
-.service-card-front,
-.service-card-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   background: var(--color-bg-card);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  padding: 3rem 2.5rem;
+  min-height: 480px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem;
+  overflow: hidden;
+  cursor: default;
+  will-change: transform;
 }
 
-/* ── Front face ── */
-
-.service-card-front {
-  gap: 1.5rem;
-  justify-content: flex-end;
-  transition: border-color 0.4s ease;
-}
-
-.service-card:hover .service-card-front {
-  border-color: var(--color-gray-500);
-}
-
-/* Corner nubs on front */
-.service-card-front::before,
-.service-card-front::after {
+/* Warm shimmer overlay — fades in on hover */
+.service-card::before {
   content: '';
   position: absolute;
-  width: 14px;
-  height: 14px;
-  border-color: rgba(82, 168, 130, 0.6);
-  border-style: solid;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(82, 168, 130, 0.04) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Bottom border sweep — width expands on hover */
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: rgba(82, 168, 130, 0.7);
+  transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
 }
 
-.service-card-front::before {
-  top: 0;
-  left: 0;
-  border-width: 1px 0 0 1px;
-  border-radius: 8px 0 0 0;
-}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover::after  { width: 100%; }
 
-.service-card-front::after {
-  bottom: 0;
-  right: 0;
-  border-width: 0 1px 1px 0;
-  border-radius: 0 0 8px 0;
-}
+/* ── Ghost numeral ── */
 
-/* ── Back face ── */
-
-.service-card-back {
-  transform: rotateY(180deg);
-  gap: 1.25rem;
-  justify-content: flex-start;
-  border-color: var(--color-gray-600);
-}
-
-.service-card-back-title {
+.service-ghost-number {
+  position: absolute;
+  top: -0.15em;
+  right: -0.05em;
   font-family: var(--font-heading);
-  font-size: var(--text-body-sm);
-  color: var(--color-gray-400);
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: -0.01em;
+  font-size: clamp(120px, 14vw, 180px);
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  transition: color 0.5s ease;
+  /* GSAP handles the parallax translateY */
 }
 
-/* ── Typography inside cards ── */
+.service-card:hover .service-ghost-number {
+  color: rgba(82, 168, 130, 0.07);
+}
 
-.service-number {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 500;
+/* ── Card top: meta + heading + divider ── */
+
+.service-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.service-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.service-index-label {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: rgba(82, 168, 130, 0.7);
+  text-transform: uppercase;
+}
+
+.service-category {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.25em;
   color: var(--color-gray-500);
-  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+.service-card:hover .service-category {
+  color: rgba(82, 168, 130, 0.8);
 }
 
 .service-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: clamp(1.75rem, 2.8vw, 2.375rem);
+  font-weight: 400;
   color: var(--color-white);
   margin: 0;
-  font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
+.service-divider {
+  width: 32px;
+  height: 1px;
+  background: var(--color-gray-600);
+  transition: width 0.4s ease, background 0.4s ease;
+  flex-shrink: 0;
+}
+
+.service-card:hover .service-divider {
+  width: 64px;
+  background: rgba(82, 168, 130, 0.6);
+}
+
+/* ── Card bottom: description + tags ── */
+
+.service-card-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .service-description {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  line-height: 1.85;
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  font-size: var(--text-body-sm);
   margin: 0;
   font-weight: 400;
+  opacity: 0.75;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover .service-description {
+  opacity: 1;
+}
+
+/* ── Tags ── */
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.service-tag {
+  font-family: var(--font-primary);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  border: 1px solid var(--color-gray-700);
+  border-radius: var(--radius-xl);
+  padding: 4px 10px;
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.service-card:hover .service-tag {
+  border-color: rgba(82, 168, 130, 0.35);
+  color: var(--color-gray-300);
 }
 
 /* ── Tablet ── */
 @media (max-width: 1024px) {
-  .services-track { gap: 1.5rem; }
-  .service-card-front,
-  .service-card-back { padding: 2.5rem 2rem; }
+  .services-track { gap: 2px; }
+  .service-card { padding: 2rem; }
+  .service-title { font-size: clamp(1.5rem, 2.4vw, 2rem); }
 }
 
-/* ── Mobile: flat cards, no flip ── */
+/* ── Mobile: single column, no tilt ── */
 @media (max-width: 768px) {
   .services-header { padding: var(--spacing-section-mobile) 1.5rem 2rem; }
 
   .services-track {
     grid-template-columns: 1fr;
     padding: 0 1.5rem var(--spacing-section-mobile);
-    gap: 1rem;
+    gap: 2px;
   }
 
-  /* Disable 3D entirely */
   .service-card {
-    height: auto;
-    perspective: none;
-  }
-
-  .service-card-inner {
-    transform: none !important;
-    transform-style: flat;
-    position: static;
-  }
-
-  /* Hide front (title-only face), show back (title + description) as flat card */
-  .service-card-front {
-    display: none;
-  }
-
-  .service-card-back {
-    position: static;
-    transform: none;
-    backface-visibility: visible;
-    -webkit-backface-visibility: visible;
-    border-color: var(--color-border);
+    min-height: auto;
     padding: 2rem;
-    gap: 1.25rem;
-    justify-content: flex-start;
+  }
+
+  /* Disable tilt transforms on mobile */
+  .service-card {
+    transform: none !important;
+  }
+
+  .service-ghost-number {
+    font-size: clamp(80px, 28vw, 120px);
   }
 }
