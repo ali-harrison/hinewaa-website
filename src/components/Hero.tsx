@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import SplitType from 'split-type'
 import { MOTION, createParallax, cleanupScrollTriggers } from '../utils/animations'
 import { useMagnetic } from '../hooks/useMagnetic'
-import heroImage from '../assets/images/hero-antarctic.jpeg'
+import heroImage from '../assets/images/hero-antarctic.webp'
 import { SECTION_IDS, CTA_PRIMARY } from '../constants/site'
 
 function Hero() {
