@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { cleanupScrollTriggers } from '../utils/animations'
 import { SECTION_IDS } from '../constants/site'
 
@@ -56,7 +55,7 @@ function Services() {
           start: 'top 80%',
           toggleActions: 'play none none none',
         },
-      }
+      },
     )
 
     // ── Card stagger ─────────────────────────────────────────────────────────
@@ -75,11 +74,11 @@ function Services() {
           start: 'top 75%',
           toggleActions: 'play none none none',
         },
-      }
+      },
     )
 
     // ── Ghost number parallax ─────────────────────────────────────────────────
-    track.querySelectorAll('.service-ghost-number').forEach(ghost => {
+    track.querySelectorAll('.service-ghost-number').forEach((ghost) => {
       gsap.to(ghost, {
         y: -40,
         ease: 'none',
@@ -93,21 +92,38 @@ function Services() {
     })
 
     // ── Per-card mouse tilt ───────────────────────────────────────────────────
-    type Handler = { el: HTMLDivElement; move: (e: MouseEvent) => void; leave: () => void }
+    type Handler = {
+      el: HTMLDivElement
+      move: (e: MouseEvent) => void
+      leave: () => void
+    }
     const handlers: Handler[] = []
 
-    cardsRef.current.forEach(card => {
+    cardsRef.current.forEach((card) => {
       if (!card) return
 
       const onMove = (e: MouseEvent) => {
         const r = card.getBoundingClientRect()
-        const rotateX = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -4
+        const rotateX =
+          ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -4
         const rotateY = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 4
-        gsap.to(card, { rotateX, rotateY, transformPerspective: 1000, duration: 0.3, ease: 'power2.out' })
+        gsap.to(card, {
+          rotateX,
+          rotateY,
+          transformPerspective: 1000,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
       }
 
       const onLeave = () => {
-        gsap.to(card, { rotateX: 0, rotateY: 0, transformPerspective: 1000, duration: 0.8, ease: 'power3.out' })
+        gsap.to(card, {
+          rotateX: 0,
+          rotateY: 0,
+          transformPerspective: 1000,
+          duration: 0.8,
+          ease: 'power3.out',
+        })
       }
 
       card.addEventListener('mousemove', onMove)
@@ -147,7 +163,9 @@ function Services() {
             <div
               key={index}
               className="service-card"
-              ref={el => { if (el) cardsRef.current[index] = el }}
+              ref={(el) => {
+                if (el) cardsRef.current[index] = el
+              }}
             >
               {/* Ghost numeral — decorative, aria-hidden */}
               <span className="service-ghost-number" aria-hidden="true">
@@ -157,7 +175,9 @@ function Services() {
               {/* Top: meta + heading + divider */}
               <div className="service-card-top">
                 <div className="service-card-meta">
-                  <span className="service-index-label">— {service.number}</span>
+                  <span className="service-index-label">
+                    — {service.number}
+                  </span>
                   <span className="service-category">{service.category}</span>
                 </div>
                 <h3 className="service-title">{service.title}</h3>
@@ -169,7 +189,9 @@ function Services() {
                 <p className="service-description">{service.description}</p>
                 <div className="service-tags">
                   {service.tags.map((tag, i) => (
-                    <span key={i} className="service-tag">{tag}</span>
+                    <span key={i} className="service-tag">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
