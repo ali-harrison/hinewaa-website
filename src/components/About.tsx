@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { fadeInOnScroll, staggerFadeInWithRotation, cleanupScrollTriggers } from '../utils/animations'
+import gsap from 'gsap'
+import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
 import aboutImage from '../assets/images/about-aimee.jpg'
 import { SECTION_IDS, NAV_LINKS, FOUNDER } from '../constants/site'
 
@@ -19,12 +20,22 @@ function About() {
 
     if (bentoRef.current) {
       const cards = bentoRef.current.querySelectorAll('.bento-card')
-      staggerFadeInWithRotation(cards, {
-        y: 50,
-        rotation: 2,
-        stagger: 0.1,
-        trigger: bentoRef.current,
-      })
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: bentoRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
     }
 
     return () => cleanupScrollTriggers()

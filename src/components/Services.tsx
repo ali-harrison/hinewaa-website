@@ -62,11 +62,12 @@ function Services() {
     const cards = track.querySelectorAll('.service-card')
     gsap.fromTo(
       cards,
-      { opacity: 0, y: 40 },
+      { opacity: 0, y: 30, scale: 0.95 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        scale: 1,
+        duration: 0.7,
         ease: 'power2.out',
         stagger: 0.15,
         scrollTrigger: {

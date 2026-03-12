@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import SplitType from 'split-type'
-import { MOTION, createParallax, cleanupScrollTriggers } from '../utils/animations'
+import { MOTION, cleanupScrollTriggers } from '../utils/animations'
 import { useMagnetic } from '../hooks/useMagnetic'
 import heroImage from '../assets/images/hero-antarctic.webp'
 import { SECTION_IDS, CTA_PRIMARY } from '../constants/site'
@@ -23,30 +23,27 @@ function Hero() {
       tagName: 'span',
     })
 
-    const tl = gsap.timeline({ defaults: { ease: MOTION.ease } })
+    // Delay the whole timeline 0.3s so chars start after paint
+    const tl = gsap.timeline({ delay: 0.3, defaults: { ease: MOTION.ease } })
 
-    // Enhanced char animation with scale + 3D rotation
+    // Cinematic char fade with blur
     tl.fromTo(
       splitTitle.chars,
-      { opacity: 0, y: 60, rotateX: -90, scale: 0.8 },
+      { opacity: 0, y: 10, filter: 'blur(8px)' },
       {
         opacity: 1,
         y: 0,
-        rotateX: 0,
-        scale: 1,
-        duration: 1.0,
-        stagger: {
-          amount: 0.8,
-          from: 'start',
-        },
-        ease: 'back.out(1.7)',
+        filter: 'blur(0px)',
+        duration: 0.6,
+        stagger: 0.025,
+        ease: 'power2.out',
       }
     )
       .fromTo(
         subtitleRef.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: MOTION.duration.fast },
-        '-=0.5'
+        '-=0.4'
       )
       .fromTo(
         ctaRef.current,
@@ -67,10 +64,23 @@ function Hero() {
         '-=0.3'
       )
 
-    // ScrollTrigger-based parallax instead of manual scroll listener
+    // Slow parallax: image drifts -60px as hero scrolls out
     let parallaxTween: gsap.core.Tween | null = null
-    if (imageRef.current) {
-      parallaxTween = createParallax(imageRef.current, { speed: 0.15 })
+    if (imageRef.current && heroRef.current) {
+      parallaxTween = gsap.fromTo(
+        imageRef.current,
+        { y: 0 },
+        {
+          y: -60,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+        }
+      )
     }
 
     return () => {

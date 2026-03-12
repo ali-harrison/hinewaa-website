@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { fadeInOnScroll, cleanupScrollTriggers } from '../utils/animations'
+import gsap from 'gsap'
+import { cleanupScrollTriggers } from '../utils/animations'
 
 function Collabs() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -17,11 +18,37 @@ function Collabs() {
   ]
 
   useEffect(() => {
-    if (!containerRef.current) return
+    const container = containerRef.current
+    if (!container) return
 
-    fadeInOnScroll(containerRef.current, { y: 40, start: 'top 75%' })
+    const track = container.querySelector<HTMLElement>('.collabs-track')
+    const trackContainer = container.querySelector<HTMLElement>('.collabs-track-container')
+    if (!track || !trackContainer) return
 
-    return () => cleanupScrollTriggers()
+    // Kill the CSS keyframe animation so GSAP takes control
+    track.style.animation = 'none'
+
+    // Seamless loop: the track already renders two identical sets of logos.
+    // Sliding exactly half the total scrollWidth brings us back to the visual start.
+    const tween = gsap.to(track, {
+      x: () => -(track.scrollWidth / 2),
+      duration: 30,
+      ease: 'none',
+      repeat: -1,
+    })
+
+    const pause = () => tween.pause()
+    const resume = () => tween.play()
+
+    trackContainer.addEventListener('mouseenter', pause)
+    trackContainer.addEventListener('mouseleave', resume)
+
+    return () => {
+      tween.kill()
+      trackContainer.removeEventListener('mouseenter', pause)
+      trackContainer.removeEventListener('mouseleave', resume)
+      cleanupScrollTriggers()
+    }
   }, [])
 
   return (
