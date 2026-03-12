@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import logoImage from '../assets/images/Vector.png'
 import { NAV_LINKS, SECTION_IDS, CTA_PRIMARY, COMPANY } from '../constants/site'
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,12 +17,13 @@ function Navigation() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`
+      return
+    }
     const element = document.getElementById(sectionId)
     if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      })
+      window.scrollTo({ top: element.offsetTop, behavior: 'smooth' })
     }
   }
 

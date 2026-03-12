@@ -1,0 +1,308 @@
+/* ── Project Detail Page ── */
+
+.project-page {
+  background: var(--color-bg);
+  min-height: 100vh;
+  color: var(--color-text);
+}
+
+.project-not-found {
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: 12rem var(--grid-padding) 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Hero ── */
+
+.project-hero {
+  position: relative;
+  height: 400px;
+  background: var(--color-bg-raised);
+  display: flex;
+  align-items: flex-end;
+  margin-top: 80px; /* clear the fixed nav */
+  overflow: hidden;
+}
+
+.project-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.3) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.project-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--grid-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--grid-padding) 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.project-hero-category {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.project-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 720px;
+}
+
+/* ── Back link ── */
+
+.project-back-wrap {
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: 2.5rem var(--grid-padding) 0;
+}
+
+.project-back-link {
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  color: var(--color-gray-400);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.project-back-link:hover {
+  color: var(--color-white);
+}
+
+/* ── Two-column body ── */
+
+.project-body {
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: 4rem var(--grid-padding) var(--spacing-section);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ── Main content ── */
+
+.project-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.project-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.project-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.project-section-label {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.project-section-text {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ── Pull quote ── */
+
+.project-pull-quote {
+  margin: 0;
+  padding: 2.5rem 2.5rem 2.5rem 2rem;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-bg-raised);
+}
+
+.project-pull-quote p {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-white);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ── Sidebar ── */
+
+.project-sidebar {
+  position: sticky;
+  top: 120px;
+}
+
+.project-details-card {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.project-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.project-detail-item:first-child { padding-top: 0; }
+.project-detail-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.project-detail-label {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+}
+
+.project-detail-value {
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.project-detail-services {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.project-detail-services li {
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  color: var(--color-white);
+  font-weight: 500;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.project-detail-services li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: 12px;
+}
+
+/* ── Bottom CTA ── */
+
+.project-cta-section {
+  background: var(--color-bg-raised);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: var(--spacing-section-tablet) var(--grid-padding);
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.project-cta-heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.project-cta-sub {
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.project-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 14px 32px;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-xl);
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.project-cta-btn:hover {
+  background: var(--color-gray-200);
+  transform: scale(1.04);
+}
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .project-body {
+    grid-template-columns: 1fr 280px;
+    gap: 3rem;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .project-hero { height: 320px; }
+
+  .project-body {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 2.5rem 1.5rem var(--spacing-section-mobile);
+  }
+
+  .project-sidebar { position: static; }
+
+  .project-back-wrap { padding: 2rem 1.5rem 0; }
+
+  .project-cta-section { padding: var(--spacing-section-mobile) 1.5rem; }
+}

@@ -25,6 +25,9 @@
   --color-gray-100: #e5e5e5;
   --color-white: #ffffff;
 
+  /* ── Accent ── */
+  --color-accent: #52a882;
+
   /* ── Semantic Mappings (dark base) ── */
   --color-text: var(--color-white);
   --color-text-secondary: var(--color-gray-300);

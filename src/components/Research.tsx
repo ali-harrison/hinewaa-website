@@ -69,7 +69,7 @@ function Research() {
   }, [])
 
   return (
-    <section className="research section section-numbered section-divider" id={SECTION_IDS.research} data-section-number="05">
+    <section className="research section section-numbered section-divider" id={SECTION_IDS.research} data-section-number="06">
       <div className="research-container">
         <div className="research-header" ref={headerRef}>
           <h2 className="research-title">

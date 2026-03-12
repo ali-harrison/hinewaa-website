@@ -25,7 +25,7 @@ function Collabs() {
   }, [])
 
   return (
-    <section className="collabs section section-numbered" data-section-number="04">
+    <section className="collabs section section-numbered" data-section-number="05">
       <div className="collabs-container" ref={containerRef}>
         <h3 className="collabs-title">Trusted Partners</h3>
         <p className="collabs-subtitle">
