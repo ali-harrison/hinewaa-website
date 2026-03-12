@@ -58,6 +58,26 @@ function Services() {
       },
     )
 
+    // ── Title line opacity+y reveal ──────────────────────────────────────────
+    // Complements the .services-title-text clip above — fades+lifts the
+    // overflow:hidden line containers themselves (fires slightly earlier at 85%)
+    gsap.fromTo(
+      header.querySelectorAll('.services-title-line'),
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      },
+    )
+
     // ── Card stagger ─────────────────────────────────────────────────────────
     const cards = track.querySelectorAll('.service-card')
     gsap.fromTo(
