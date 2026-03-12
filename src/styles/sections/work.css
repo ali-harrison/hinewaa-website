@@ -1,0 +1,224 @@
+/* ── Work / He Mahi Whakahirahira Section ── */
+
+.work {
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* ── Header ── */
+
+.work-header-wrap {
+  max-width: var(--grid-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-section) var(--grid-padding) 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.work-header-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.work-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.work-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  font-weight: 800;
+  color: var(--color-white);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1em;
+}
+
+/* Clip containers for GSAP reveal */
+.work-title .title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.work-title .title-text {
+  display: block;
+}
+
+/* Second line: italic muted — bilingual pattern */
+.work-title .title-line:last-child .title-text {
+  font-style: italic;
+  color: var(--color-gray-400);
+  font-weight: 700;
+  padding-right: 0.15em;
+}
+
+.work-scroll-hint {
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  white-space: nowrap;
+  padding-bottom: 0.4rem;
+  flex-shrink: 0;
+}
+
+.work-intro {
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ── Horizontal scroll track ── */
+
+.work-track-outer {
+  overflow-x: scroll;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--grid-padding);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.work-track-outer::-webkit-scrollbar {
+  display: none;
+}
+
+.work-track {
+  display: flex;
+  gap: 2px;
+  width: max-content;
+  padding: 3rem var(--grid-padding) var(--spacing-section);
+}
+
+/* ── Card ── */
+
+.work-card {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  width: 420px;
+  min-height: 520px;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease;
+}
+
+.work-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Card image placeholder ── */
+
+.work-card-image {
+  height: 240px;
+  background: var(--color-bg-raised);
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Subtle tonal variation per card so placeholders feel distinct */
+.work-card:nth-child(1) .work-card-image { background: #111116; }
+.work-card:nth-child(2) .work-card-image { background: #0e1210; }
+.work-card:nth-child(3) .work-card-image { background: #0f1014; }
+
+/* Gradient fade from image into card body */
+.work-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--color-bg-card), transparent);
+  pointer-events: none;
+}
+
+/* Category tag — overlaid bottom-left of image */
+.work-card-category {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 1;
+  font-family: var(--font-primary);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gray-300);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 4px 12px;
+}
+
+/* ── Card body ── */
+
+.work-card-body {
+  padding: 1.75rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.work-card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.375rem, 2vw, 1.625rem);
+  font-weight: 400;
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.work-card-summary {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex: 1;
+}
+
+.work-card-link {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.3s ease;
+  align-self: flex-start;
+}
+
+.work-card-link:hover {
+  gap: 0.55rem;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .work-card { width: 360px; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .work-header-wrap { padding: var(--spacing-section-mobile) 1.5rem 2rem; }
+  .work-header-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .work-scroll-hint { display: none; }
+  .work-track { padding: 2rem 1.5rem var(--spacing-section-mobile); }
+  .work-card { width: 85vw; }
+}

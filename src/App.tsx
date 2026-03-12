@@ -8,6 +8,7 @@ import About from './components/About'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import Impact from './components/Impact'
+import Work from './components/Work'
 import Collabs from './components/Collabs'
 import Research from './components/Research'
 import Contact from './components/Contact'
@@ -49,6 +50,7 @@ function App() {
         <About />
         <Services />
         <Impact />
+        <Work />
         <Collabs />
         <Research />
         <Contact />

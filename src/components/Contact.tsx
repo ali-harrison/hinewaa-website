@@ -105,7 +105,7 @@ function Contact() {
   }, [])
 
   return (
-    <section className="contact section section-numbered" id={SECTION_IDS.contact} data-section-number="06">
+    <section className="contact section section-numbered" id={SECTION_IDS.contact} data-section-number="07">
       <div className="contact-container">
         <div className="contact-header" ref={headerRef}>
           <h2 className="contact-title">
