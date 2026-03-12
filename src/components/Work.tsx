@@ -49,7 +49,71 @@ function Work() {
       },
     )
 
-    return () => cleanupScrollTriggers()
+    // ── Drag momentum ─────────────────────────────────────────────────────────
+    // trackRef is .work-track-outer (the scroll container).
+    // During drag: quickTo for smooth 60fps cursor tracking.
+    // On release: gsap.to for momentum coast with power2.out.
+    const container = trackRef.current
+    const maxScroll = () => container.scrollWidth - container.offsetWidth
+
+    let isDown = false
+    let startX = 0
+    let startScrollLeft = 0
+    let lastX = 0
+    let lastDeltaX = 0
+
+    const quickScroll = gsap.quickTo(container, 'scrollLeft', {
+      duration: 0.1,
+      ease: 'power2.out',
+    })
+
+    const onMouseDown = (e: MouseEvent) => {
+      isDown = true
+      startX = e.pageX
+      startScrollLeft = container.scrollLeft
+      lastX = e.pageX
+      lastDeltaX = 0
+      container.style.cursor = 'grabbing'
+      container.style.userSelect = 'none'
+      container.style.scrollSnapType = 'none'
+      gsap.killTweensOf(container, 'scrollLeft')
+    }
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDown) return
+      lastDeltaX = e.pageX - lastX
+      lastX = e.pageX
+      const dx = e.pageX - startX
+      quickScroll(Math.max(0, Math.min(maxScroll(), startScrollLeft - dx)))
+    }
+
+    const onMouseUp = () => {
+      if (!isDown) return
+      isDown = false
+      container.style.cursor = 'grab'
+      container.style.userSelect = ''
+      const target = Math.max(0, Math.min(maxScroll(), container.scrollLeft - lastDeltaX * 8))
+      gsap.to(container, {
+        scrollLeft: target,
+        duration: 0.8,
+        ease: 'power2.out',
+        onComplete: () => { container.style.scrollSnapType = '' },
+      })
+    }
+
+    container.style.cursor = 'grab'
+    container.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+    container.addEventListener('mouseleave', onMouseUp)
+
+    return () => {
+      container.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+      container.removeEventListener('mouseleave', onMouseUp)
+      cleanupScrollTriggers()
+    }
   }, [])
 
   return (
