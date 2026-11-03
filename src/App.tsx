@@ -1,60 +1,44 @@
 import { useEffect } from 'react'
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { SITE_META } from './constants/site'
+import { SITE_META, SHOW_WORK } from './constants/site'
 import Navigation from './components/Navigation'
 import About from './components/About'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import Values from './components/Values'
 import Impact from './components/Impact'
 import Work from './components/Work'
 import Collabs from './components/Collabs'
 import Research from './components/Research'
 import Contact from './components/Contact'
-import CustomCursor from './components/CustomCursor'
-import LoadingScreen from './components/LoadingScreen'
+import Footer from './components/Footer'
+import { initScrollMotion } from './utils/scrollMotion'
 
 function App() {
   useEffect(() => {
     document.title = SITE_META.title
-    gsap.registerPlugin(ScrollTrigger)
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    })
+    // Arriving from a project page via /#section — scroll once the sections exist
+    const hash = window.location.hash.slice(1)
+    if (hash) document.getElementById(hash)?.scrollIntoView()
 
-    // Connect Lenis to GSAP's ticker for ScrollTrigger compatibility
-    lenis.on('scroll', ScrollTrigger.update)
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-
-    gsap.ticker.lagSmoothing(0)
-
-    return () => {
-      lenis.destroy()
-    }
+    return initScrollMotion()
   }, [])
 
   return (
     <div className="app">
-      <LoadingScreen />
-      <CustomCursor />
       <Navigation />
       <main>
         <Hero />
         <About />
         <Services />
+        <Values />
         <Impact />
-        <Work />
+        {SHOW_WORK && <Work />}
         <Collabs />
         <Research />
         <Contact />
       </main>
+      <Footer />
     </div>
   )
 }

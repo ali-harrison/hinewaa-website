@@ -6,80 +6,75 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100%;
-  scroll-padding-top: 100px;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100%;
-  max-width: 100vw;
-  min-height: 100vh;
+  overflow-x: clip;
 }
 
-/* Hide scrollbar for all browsers */
-*::-webkit-scrollbar {
-  display: none;
+::selection {
+  background: var(--kokowai);
+  color: var(--muka);
 }
 
-* {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-/* ── Typography Hierarchy ── */
+/* ── Typography ── */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: var(--color-text);
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: inherit;
+  text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-display);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
 }
 
 h2 {
   font-size: var(--text-h2);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
 h3 {
   font-size: var(--text-h3);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
 h4, h5, h6 {
-  font-weight: 700;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 p {
-  line-height: 1.75;
+  line-height: 1.6;
+  text-wrap: pretty;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul {
+  list-style: none;
 }
 
 img {
@@ -93,116 +88,147 @@ button {
   cursor: pointer;
 }
 
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 2px;
+:focus-visible {
+  outline: 2px solid var(--kokowai);
+  outline-offset: 3px;
 }
 
-/* Prevent horizontal overflow — exclude pinned sections */
-section:not(.pin-spacer *) {
-  max-width: 100vw;
-  overflow-x: clip;
-}
-
-/* App wrapper */
-.app {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* ── Section Number Decoration ── */
-
-.section-numbered {
-  position: relative;
-}
-
-.section-numbered::before {
-  content: attr(data-section-number);
+/* Read by screen readers, hidden on screen */
+.visually-hidden {
   position: absolute;
-  top: var(--grid-padding);
-  right: var(--grid-padding);
-  font-family: var(--font-heading);
-  font-size: clamp(8rem, 15vw, 14rem);
-  font-weight: 900;
-  color: var(--color-white);
-  opacity: 0.04;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-/* ── Section Divider ── */
+/* ── Small mono label ── */
 
-.section-divider {
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Section heading: te reo as the headline, English as the label above ── */
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.section-title {
+  font-size: var(--text-h2);
+}
+
+/* ── Buttons ── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1;
+  background: var(--pango);
+  color: var(--muka);
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--kokowai);
+}
+
+.btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ── Scroll motion hooks (see utils/scrollMotion.ts) ── */
+
+/* A word inside its mask; padding gives macrons and descenders room */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.14em 0.04em 0.22em;
+  margin: -0.14em -0.04em -0.22em;
+}
+
+.word-inner {
+  display: inline-block;
+}
+
+/* A hairline that can draw itself in from the left */
+[data-rule] {
   position: relative;
 }
 
-.section-divider::after {
+[data-rule]::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: var(--grid-padding);
-  right: var(--grid-padding);
+  top: 0;
+  left: 0;
+  right: 0;
   height: 1px;
-  background: var(--color-gray-700);
-  z-index: 1;
+  background: var(--rule-color, var(--color-border-strong));
+  transform: scaleX(var(--draw, 1));
+  transform-origin: left;
+  pointer-events: none;
 }
 
-/* ── Title clip-reveal utility ── */
-/* Wrap each title line in .title-line and the text in .title-text.
-   GSAP animates .title-text from translateY(110%) → 0. */
+[data-rule='bottom']::before {
+  top: auto;
+  bottom: 0;
+}
 
-.title-line {
+/* ── Dark sections ── */
+
+.section-dark {
+  --color-text: var(--muka);
+  --color-text-secondary: #d6cfc2;
+  --color-text-muted: var(--stone-light);
+  --color-border: rgba(242, 238, 230, 0.16);
+  --color-border-strong: rgba(242, 238, 230, 0.5);
+  background: var(--pango);
+  color: var(--color-text);
+}
+
+.section-dark .btn {
+  background: var(--muka);
+  color: var(--pango);
+}
+
+.section-dark .btn:hover {
+  background: var(--kokowai-light);
+}
+
+/* ── Tukutuku canvas ── */
+
+.tukutuku {
   display: block;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: var(--pango);
 }
-
-.title-text {
-  display: block;
-}
-
-/* ── Image Treatment Utilities ── */
-
-.img-grayscale {
-  filter: grayscale(100%);
-  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.img-grayscale:hover {
-  filter: grayscale(0%);
-}
-
-.img-reveal {
-  overflow: hidden;
-  border-radius: var(--radius-md);
-}
-
-.img-reveal img {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.img-reveal:hover img {
-  transform: scale(1.06);
-  filter: grayscale(0%);
-}
-
-/* ── Responsive ── */
 
 @media (max-width: 768px) {
-  body {
-    font-size: var(--text-body-sm);
-  }
-
-  .section-numbered::before {
-    font-size: clamp(5rem, 20vw, 8rem);
-    top: 1rem;
-    right: 1rem;
-    opacity: 0.03;
+  .section-heading {
+    margin-bottom: 2.5rem;
   }
 }

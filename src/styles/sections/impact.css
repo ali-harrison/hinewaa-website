@@ -1,119 +1,46 @@
-/* ── Impact Section ── */
+/* ── Impact Section (dark) ── */
 
+/* Faint vertical reeds, like the kākaho behind a tukutuku panel */
 .impact {
-  background: var(--color-bg-raised);
-  position: relative;
-  overflow: hidden;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(242, 238, 230, 0.035) 0 1px,
+    transparent 1px 12px
+  );
 }
-
-.impact-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--grid-gutter);
-  max-width: var(--grid-max-width);
-  margin: 0 auto;
-  padding: 0 var(--grid-padding);
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Header ── */
-
-.impact-header {
-  grid-column: 1 / -1;
-  padding-bottom: 3rem;
-  margin-bottom: 4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.impact-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  line-height: 1.0;
-  color: var(--color-white);
-  font-weight: 800;
-  margin: 0 0 1.5rem 0;
-  letter-spacing: -0.03em;
-}
-
-/* Bilingual second line: italic + muted */
-.impact-title em {
-  font-style: italic;
-  font-weight: 700;
-  color: var(--color-gray-400);
-}
-
-.impact-intro {
-  font-size: var(--text-body-sm);
-  line-height: 1.75;
-  color: var(--color-text-secondary);
-  margin: 0;
-  max-width: 60ch;
-  opacity: 0.75;
-}
-
-/* ── Stat cards ── */
 
 .impact-stats {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--grid-gutter);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .impact-stat {
-  background: var(--color-bg-card);
-  padding: 2.5rem;
-  border-radius: 0;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: border-color 0.4s ease;
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 2rem 0.5rem 0;
 }
 
-.impact-stat:hover {
-  border-color: rgba(255, 255, 255, 0.14);
+.impact-stat + .impact-stat {
+  padding-left: 2rem;
+  border-left: 1px solid var(--color-border);
 }
 
 .impact-metric {
-  font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  font-weight: 900;
-  color: var(--color-white);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.impact-label {
-  font-family: var(--font-primary);
-  font-size: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
   font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--color-gray-400);
-  margin-bottom: 1.25rem;
+  line-height: 1;
+  letter-spacing: -0.035em;
 }
 
 .impact-description {
   color: var(--color-text-secondary);
-  font-size: 13px;
-  margin: 0;
-  line-height: 1.75;
-  opacity: 0.75;
+  max-width: 34ch;
 }
 
-/* ── Tablet ── */
-@media (max-width: 1024px) {
-  .impact-container { grid-template-columns: repeat(8, 1fr); }
-  .impact-header { grid-column: 1 / -1; }
-  .impact-stats { grid-column: 1 / -1; }
-}
-
-/* ── Mobile ── */
-@media (max-width: 768px) {
-  .impact-container { grid-template-columns: 1fr; padding: 0 1.5rem; }
-  .impact-header { padding-bottom: 2rem; margin-bottom: 2.5rem; }
+@media (max-width: 900px) {
   .impact-stats { grid-template-columns: 1fr; }
-  .impact-stat { padding: 2rem; }
+  .impact-stat { padding: 1.75rem 0; }
+  .impact-stat + .impact-stat { padding-left: 0; border-left: none; border-top: 1px solid var(--color-border); }
 }

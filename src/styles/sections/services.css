@@ -1,277 +1,144 @@
-/* ── Services Section ── */
+/* ── Services Section: heading + image left, accordion right ── */
 
 .services {
-  background: var(--color-bg-raised);
-  position: relative;
-  overflow: hidden;
+  border-top: 1px solid var(--color-border);
 }
 
-.services-container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Header + title reveal ── */
-
-.services-header {
-  max-width: var(--grid-max-width);
-  margin: 0 auto;
-  padding: var(--spacing-section) var(--grid-padding) 3rem;
-  text-align: left;
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.services-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  color: var(--color-white);
-  font-weight: 800;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.1em;
-}
-
-/* Each line is an overflow:hidden clip — GSAP animates .services-title-text inside */
-.services-title-line {
-  display: block;
-  overflow: hidden;
-}
-
-.services-title-text {
-  display: block;
-}
-
-/* Second line (English) is italic + muted — bilingual pattern */
-.services-title-line:last-child .services-title-text {
-  font-style: italic;
-  color: var(--color-gray-400);
-  font-weight: 700;
-  /* Italic characters overhang the right edge and get clipped by
-     overflow:hidden on the parent — padding-right gives them room */
-  padding-right: 0.15em;
-}
-
-/* ── Card Grid ── */
-
-.services-track {
+.services-layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  padding: 0 var(--grid-padding) var(--spacing-section);
-  max-width: var(--grid-max-width);
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 4rem;
+  align-items: start;
 }
 
-/* ── Card ── */
+.services-side {
+  position: sticky;
+  top: calc(var(--nav-height) + 2rem);
+}
 
-.service-card {
-  position: relative;
-  background: var(--color-bg-card);
-  min-height: 480px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2.5rem;
+.services-image {
+  aspect-ratio: 6 / 5;
+  max-width: 440px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  cursor: default;
-  will-change: transform;
 }
 
-/* Warm shimmer overlay — fades in on hover */
-.service-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(82, 168, 130, 0.04) 0%, transparent 55%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  z-index: 0;
+/* ── Accordion ── */
+
+.services-list {
+  margin-top: 0.5rem;
 }
 
-/* Bottom border sweep — width expands on hover */
-.service-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: rgba(82, 168, 130, 0.7);
-  transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
+.service-item h3 {
+  font-size: inherit;
+  letter-spacing: normal;
 }
 
-.service-card:hover::before { opacity: 1; }
-.service-card:hover::after  { width: 100%; }
-
-/* ── Ghost numeral ── */
-
-.service-ghost-number {
-  position: absolute;
-  top: -0.15em;
-  right: -0.05em;
-  font-family: var(--font-heading);
-  font-size: clamp(120px, 14vw, 180px);
-  font-weight: 300;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.04);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-  transition: color 0.5s ease;
-  /* GSAP handles the parallax translateY */
-}
-
-.service-card:hover .service-ghost-number {
-  color: rgba(82, 168, 130, 0.07);
-}
-
-/* ── Card top: meta + heading + divider ── */
-
-.service-card-top {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.service-card-meta {
-  display: flex;
+.service-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 1.5rem;
   align-items: center;
   gap: 1rem;
-}
-
-.service-index-label {
-  font-family: var(--font-primary);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: rgba(82, 168, 130, 1);
-  text-transform: uppercase;
-}
-
-.service-category {
-  font-family: var(--font-primary);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  color: var(--color-gray-400);
-  text-transform: uppercase;
-  transition: color 0.4s ease;
-}
-
-.service-card:hover .service-category {
-  color: rgba(82, 168, 130, 0.8);
+  padding: 1.75rem 0;
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--pango);
 }
 
 .service-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 2.8vw, 2.375rem);
-  font-weight: 400;
-  color: var(--color-white);
-  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  transition: color 0.2s ease;
 }
 
-.service-divider {
-  width: 32px;
-  height: 1px;
-  background: var(--color-gray-600);
-  transition: width 0.4s ease, background 0.4s ease;
-  flex-shrink: 0;
+.service-toggle:hover .service-title,
+.service-item.is-open .service-title {
+  color: var(--kokowai);
 }
 
-.service-card:hover .service-divider {
-  width: 64px;
-  background: rgba(82, 168, 130, 0.6);
-}
-
-/* ── Card bottom: description + tags ── */
-
-.service-card-bottom {
+/* Plus that turns into a minus when open */
+.service-icon {
   position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
+  width: 18px;
+  height: 18px;
+  justify-self: end;
+}
+
+.service-icon::before,
+.service-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.service-icon::after {
+  transform: rotate(90deg);
+}
+
+.service-item.is-open .service-icon::after {
+  transform: rotate(0deg);
+}
+
+.service-panel {
+  padding: 0 0 2rem 3.5rem;
+  display: grid;
   gap: 1.5rem;
 }
 
-.service-description {
-  font-family: var(--font-primary);
-  font-size: 13px;
-  line-height: 1.85;
+.service-panel[hidden] {
+  display: none;
+}
+
+.service-panel > p {
+  font-size: var(--text-body-lg);
+  line-height: 1.5;
   color: var(--color-text-secondary);
-  margin: 0;
-  font-weight: 400;
-  opacity: 0.75;
-  transition: opacity 0.4s ease;
+  max-width: 46ch;
 }
 
-.service-card:hover .service-description {
-  opacity: 1;
+.service-includes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 2rem;
 }
 
-/* ── Tags ── */
-
-.service-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.service-includes li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
 }
 
-.service-tag {
-  font-family: var(--font-primary);
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-gray-400);
-  border: 1px solid var(--color-gray-700);
-  border-radius: var(--radius-xl);
-  padding: 4px 10px;
-  transition: border-color 0.4s ease, color 0.4s ease;
+/* A single cross-stitch as the bullet */
+.service-includes li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  color: var(--kokowai);
+  font-weight: 500;
 }
 
-.service-card:hover .service-tag {
-  border-color: rgba(82, 168, 130, 0.35);
-  color: var(--color-gray-300);
-}
-
-/* ── Tablet ── */
+/* ── Tablet / Mobile ── */
 @media (max-width: 1024px) {
-  .services-track { gap: 2px; }
-  .service-card { padding: 2rem; }
-  .service-title { font-size: clamp(1.5rem, 2.4vw, 2rem); }
+  .services-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .services-side { position: static; }
+  .services-image { display: none; }
 }
 
-/* ── Mobile: single column, no tilt ── */
-@media (max-width: 768px) {
-  .services-header { padding: var(--spacing-section-mobile) 1.5rem 2rem; }
-
-  .services-track {
-    grid-template-columns: 1fr;
-    padding: 0 1.5rem var(--spacing-section-mobile);
-    gap: 2px;
-  }
-
-  .service-card {
-    min-height: auto;
-    padding: 2rem;
-  }
-
-  /* Disable tilt transforms on mobile */
-  .service-card {
-    transform: none !important;
-  }
-
-  .service-ghost-number {
-    font-size: clamp(80px, 28vw, 120px);
-  }
+@media (max-width: 600px) {
+  .service-toggle { grid-template-columns: 2rem 1fr 1.25rem; gap: 0.75rem; padding: 1.4rem 0; }
+  .service-panel { padding-left: 2.75rem; }
+  .service-includes { grid-template-columns: 1fr; }
 }

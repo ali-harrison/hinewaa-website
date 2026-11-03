@@ -1,8 +1,12 @@
-/* Poutama Triangle Custom Cursor */
+/* Poutama cursor — pointer devices only. Links, buttons and form fields keep their usual cursors. */
 
-/* Hide default cursor on desktop */
 @media (hover: hover) and (pointer: fine) {
-  * {
-    cursor: none !important;
+  body {
+    cursor: url('/cursor.svg') 24 10, auto;
+  }
+
+  input,
+  textarea {
+    cursor: text;
   }
 }

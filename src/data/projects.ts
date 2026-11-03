@@ -6,7 +6,6 @@ export interface Project {
   challenge: string
   approach: string
   outcome: string
-  pullQuote: string
   client: string
   sector: string
   year: string
@@ -19,15 +18,13 @@ export const projects: Project[] = [
     category: "Strategic Design",
     title: "Iwi Governance Framework Redesign",
     summary:
-      "Developing a transformational governance architecture for a major iwi organisation operating across multiple regions.",
+      "A new governance framework for an iwi organisation operating across several regions.",
     challenge:
-      "The organisation faced significant complexity in aligning governance structures across multiple regional entities, each operating under different mandates and accountabilities. Strategic decision-making was fragmented, and the existing frameworks did not reflect the organisation\u2019s tikanga or long-term aspirations.",
+      "Regional entities were working under different mandates and accountabilities. Decision-making was fragmented, and the existing frameworks didn't reflect the organisation's tikaka or long-term aspirations.",
     approach:
-      "Working directly with the leadership team and key stakeholders, we undertook a deep listening process to understand the full landscape of the organisation\u2019s governance challenges. From this foundation, we designed a coherent, values-led framework that could operate across all entities while preserving regional autonomy and embedding m\u0101tauranga M\u0101ori at every level.",
+      "We worked with the leadership team and key stakeholders to understand how governance was working across the group. From there we designed a values-led framework that applies to every entity, keeps regional autonomy and embeds mātauraka Māori throughout.",
     outcome:
-      "A transformational governance architecture that aligned strategic decision-making, clarified accountability pathways, and embedded m\u0101tauranga M\u0101ori at every level of the organisation\u2019s operating model \u2014 with clear milestones and measurable performance frameworks.",
-    pullQuote:
-      "The work shifted how we think about governance \u2014 not as a compliance requirement, but as an expression of who we are and where we\u2019re going.",
+      "One governance framework with clear decision rights and accountability, mātauraka Māori embedded at every level, and milestones and measures to track performance.",
     client: "Confidential",
     sector: "Iwi Governance",
     year: "2024",
@@ -38,18 +35,16 @@ export const projects: Project[] = [
     category: "Climate & Taiao",
     title: "Southern Ocean Environmental Strategy",
     summary:
-      "Embedding m\u0101tauranga M\u0101ori into Antarctic governance systems and environmental policy at an international level.",
+      "Bringing mātauraka Māori into Antarctic governance and international environmental policy.",
     challenge:
-      "Indigenous voices have historically been absent from the governance frameworks that determine how the Southern Ocean and Antarctic systems are managed. This creates significant gaps in both cultural integrity and environmental resilience \u2014 decisions about taiao that affect us all are being made without Indigenous knowledge or authority.",
+      "Indigenous voices have largely been absent from the frameworks that govern the Southern Ocean and Antarctica. Decisions about taiao that affect everyone are being made without Indigenous knowledge or authority.",
     approach:
-      "Through doctoral-level research and direct engagement with international governance bodies, we developed a strategic framework for positioning K\u0101i Tahu and broader Indigenous perspectives within the Antarctic Treaty System. This included developing policy briefs, building relationships with key decision-makers, and creating sustainable advocacy pathways.",
+      "Drawing on doctoral research and direct engagement with international governance bodies, we developed a strategy for positioning Kāi Tahu and wider Indigenous perspectives within the Antarctic Treaty System. This included policy briefs and building relationships with key decision-makers.",
     outcome:
-      "A recognised contribution to international environmental governance discourse, with K\u0101i Tahu perspectives formally acknowledged in multiple policy processes and a sustainable advocacy pathway established for ongoing Indigenous participation in Southern Ocean governance.",
-    pullQuote:
-      "Bringing Indigenous knowledge to the Antarctic Treaty System isn\u2019t just about representation \u2014 it\u2019s about better governance for all of humanity.",
+      "Kāi Tahu perspectives acknowledged in several international policy processes, and an ongoing pathway for Indigenous participation in Southern Ocean governance.",
     client: "Confidential",
     sector: "Environmental Governance",
-    year: "2023\u20132024",
+    year: "2023–2024",
     services: ["Research & Policy", "International Advocacy", "Strategic Design"],
   },
   {
@@ -57,15 +52,13 @@ export const projects: Project[] = [
     category: "Indigenous Economies",
     title: "Regional Economic Transformation",
     summary:
-      "Positioning an iwi economy within national and international frameworks to drive long-term prosperity.",
+      "An economic strategy positioning an iwi economy for long-term prosperity.",
     challenge:
-      "The region held significant natural and cultural assets but lacked a coherent economic strategy that could translate these into durable prosperity for current and future generations. Existing frameworks did not reflect Indigenous values or the long-term, intergenerational thinking required for genuine transformation.",
+      "The region had significant natural and cultural assets but no clear strategy for turning them into lasting prosperity. Existing frameworks didn't reflect Indigenous values or intergenerational thinking.",
     approach:
-      "We developed an integrated economic strategy that mapped current assets, identified key opportunities within food and ocean economies, and designed transition pathways aligned with the iwi\u2019s tikanga and long-term aspirations. The strategy was co-designed with the community to ensure broad ownership and genuine accountability.",
+      "We mapped current assets, identified opportunities in food and ocean economies, and designed transition pathways aligned with the iwi's tikaka. The strategy was co-designed with the community so it belongs to them.",
     outcome:
-      "A comprehensive economic transformation roadmap that positioned the iwi as a key player in national and international markets, with clear accountability frameworks and measurable milestones aligned to intergenerational prosperity.",
-    pullQuote:
-      "This strategy gave us a clear line of sight from where we are today to where our mokopuna need us to be.",
+      "An economic roadmap with clear accountability and milestones, positioning the iwi in national and international markets.",
     client: "Confidential",
     sector: "Regional Development",
     year: "2024",
