@@ -9,8 +9,9 @@ gsap.registerPlugin(ScrollTrigger)
 function enterTogether(batch: Element[], to: gsap.TweenVars) {
   const passed = batch.filter((el) => el.getBoundingClientRect().bottom <= 0)
   const showing = batch.filter((el) => el.getBoundingClientRect().bottom > 0)
-  gsap.set(passed, { ...to, duration: 0, ease: 'none' })
-  gsap.to(showing, { ...to, stagger: Math.min(0.08, 0.4 / Math.max(1, showing.length)) })
+  // GSAP warns "target not found" for empty arrays, so skip whichever group is empty
+  if (passed.length) gsap.set(passed, { ...to, duration: 0, ease: 'none' })
+  if (showing.length) gsap.to(showing, { ...to, stagger: Math.min(0.08, 0.4 / showing.length) })
 }
 
 // Scroll animations, switched on by data attributes so components stay declarative:
