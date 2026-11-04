@@ -1,56 +1,35 @@
-# Hinewaa Website
+# Hinewaa
 
-Website for Hinewaa Ltd, an Indigenous-led strategy and governance practice based in Aotearoa New Zealand.
+Website for Hinewaa Ltd, a Māori-owned strategy and governance practice in Aotearoa. Designed and built by me, Ali Werahiko Te Wairama Harrison (Te Wairama Digital).
 
-**Live site:** https://hinewaa.com
+Live at https://hinewaa.com
 
-## Tech Stack
+Built with React 19, TypeScript and Vite, with GSAP for scroll motion and a Vercel function that sends the contact form through Resend.
 
-- React 19 + TypeScript, built with Vite
-- React Router for the project pages (`/projects/:slug`)
-- GSAP for light scroll fade-ins (disabled when the visitor prefers reduced motion)
-- Satoshi (headings and body) and IBM Plex Mono (small labels)
-- Contact form sends email through a Vercel serverless function (`api/send-email.ts`) using Resend
+## Design notes
 
-## Development
+The palette comes from kōwhaiwhai: muka (flax cream), pango (black) and kōkōwai (red ochre). Headings lead with te reo Māori in Kāi Tahu dialect, with the English as a small label.
+
+Photos are drawn as tukutuku panels in `src/components/TukutukuImage.tsx`. The stitches follow the brightness of the photo, water areas ripple, and hovering lifts the stitches to show the photo underneath.
+
+The values climb as a poutama that draws itself as you scroll. The same pattern runs along the top of the footer, and the cursor is a poutama triangle.
+
+Scroll animations are switched on with data attributes (`data-reveal`, `data-words`, `data-read`, `data-rule`, `data-parallax`) and handled in `src/utils/scrollMotion.ts`. They're off for anyone who prefers reduced motion.
+
+## Running it
 
 ```bash
 npm install
-npm run dev      # start the dev server
-npm run build    # type-check and build for production
-npm run preview  # preview the production build
+npm run dev
 ```
 
 The contact form needs `RESEND_API_KEY` set in the Vercel project's environment variables.
 
-## Design
+## Updating content
 
-- **Palette:** the kōwhaiwhai colours — muka (flax-fibre cream), pango (black) and kōkōwai (red ochre). Defined in `src/styles/variables.css`.
-- **Headings:** te reo Māori is the headline, with the English as a small label above. All te reo uses Kāi Tahu dialect.
-- **Tukutuku images:** `src/components/TukutukuImage.tsx` draws photos as a tukutuku panel — reeds, laths and cross-stitches whose weight follows the photo's brightness. Water areas ripple, and hovering lifts the stitches to show the photo underneath. Source photos live in `src/assets/images/tukutuku/` as WebP, about 960px wide (sharp enough for the hover reveal).
-- **Poutama:** the three values climb as a poutama staircase (the line draws itself as you scroll); a poutama band runs along the top of the footer; the cursor is a poutama triangle.
-- **Scroll motion:** add `data-reveal`, `data-words`, `data-read`, `data-rule` or `data-parallax` to an element and `src/utils/scrollMotion.ts` animates it. All of it is switched off for visitors who prefer reduced motion.
+- Contact details, nav labels and founder info: `src/constants/site.ts`
+- Case studies: `src/data/projects.ts`. They stay hidden until `SHOW_WORK` is set to `true` in `src/constants/site.ts`.
+- Partner logos: `public/logos/`, listed in `src/components/Collabs.tsx`
+- Section copy: the matching component in `src/components/`
 
-## Editing Content
-
-- **Contact details, nav labels, founder info:** `src/constants/site.ts`
-- **Case studies (Selected Work):** `src/data/projects.ts`
-- **Partner logos:** `public/logos/`, listed in `src/components/Collabs.tsx`
-- **Section copy:** the matching component in `src/components/`
-
-## Project Structure
-
-```
-api/              # Vercel serverless functions
-public/           # Static files (favicon, cursor, logos, social share image)
-src/
-├── components/   # Page sections
-├── constants/    # Site-wide content and settings
-├── data/         # Case study content
-├── pages/        # Project detail page
-└── styles/       # CSS: variables, global, layout, per-section
-```
-
-## Deployment
-
-Deployed on Vercel with automatic deployments from the `main` branch.
+Deploys to Vercel from `main`.
