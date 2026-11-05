@@ -1,3 +1,5 @@
+![The Hinewaa homepage, with the headline Indigenous strategy for complex systems above a tukutuku panel of a mountain at dusk.](docs/screenshot.jpg)
+
 # Hinewaa
 
 Website for Hinewaa Ltd, a Māori-owned strategy and governance practice in Aotearoa. Designed and built by me, Ali Werahiko Te Wairama Harrison (Te Wairama Digital).
